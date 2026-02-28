@@ -15,31 +15,30 @@ library(ggplot2)
 PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
 PATH = dirname(PRG_PATH)
 DAT_PATH = file.path(PATH, "DAT")
-LIB_PATH = file.path(PRG_PATH, "LIB")
-RES_PATH = file.path(PATH, "RES")
+RAW_PATH = file.path(DAT_PATH, "raw")
+CLEAN_PATH = file.path(DAT_PATH, "clean")
 
-### Define participants' id 
+#
 file_name = "data_BodyPerception.xlsx"
-file_path = file.path(DAT_PATH, file_name)
+file_path = file.path(RAW_PATH, file_name)
 
-df_raw = readxl::read_excel(file_path)
+df_raw = read_excel(file_path)
 
-ADJ = c("athletique", "moyen", "surpoids", "obesite", "fine", "maigre")
+ADJ = c("athletic", "average", "overweight", "obese", "thin", "skinny")
 
 # VI columns
 vi_cols = sprintf("VI03_%02d", 1:12)
-
 pm_cols = sprintf("PM%02d_01", 1:72)
 
 stopifnot(all(vi_cols %in% names(df_raw)))
 stopifnot(all(pm_cols %in% names(df_raw)))
 
 
-# Colonnes méta (démographiques, ID, etc.)
+# Meta columns (demographic, ID, etc.)
 meta_cols = setdiff(names(df_raw), c(vi_cols, pm_cols))
 
 
-# Colonnes PM correspondant à un slot (1..12)
+# Function to get PM columns for each slot (1..12)
 get_pm_cols_for_slot <- function(s) {
   sprintf("PM%02d_01", ((s - 1) * 6 + 1):(s * 6))
 }
@@ -75,13 +74,14 @@ ratings_long = bind_rows(long_list) %>%
     adjectif = factor(adjectif, levels = ADJ)
   )
 
-setwd(RES_PATH)
+# Export cleaned data
 
-save(ratings_long, file = "pre_manip_ratings.rdata")
+# RData
+save(ratings_long, file = file.path(CLEAN_PATH, "pre_manip_ratings.rdata"))
 
-# CSV (lisible partout)
+# CSV
 write.csv(ratings_long,
-          file = "pre_manip_ratings.csv",
+          file = file.path(CLEAN_PATH, "pre_manip_ratings.csv"),
           row.names = FALSE)
 
 # Excel
@@ -89,11 +89,10 @@ wb = createWorkbook()
 addWorksheet(wb, "ratings_long")
 writeData(wb, "ratings_long", ratings_long)
 saveWorkbook(wb,
-             file = "pre_manip_ratings.xlsx",
+             file = file.path(CLEAN_PATH, "pre_manip_ratings.xlsx"),
              overwrite = TRUE)
 
-########################### 6) Quick sanity check ##############################
-
+# Sanity check 
 print(head(ratings_long))
 print(table(ratings_long$adjectif))
 
