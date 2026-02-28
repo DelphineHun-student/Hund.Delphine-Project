@@ -116,20 +116,27 @@ demographics_summary
 ```
 
 ### Ratings by avatar × adjective
-```{r}
+We report mean and standard deviation of ratings for each avatar across the six adjective dimensions.
+```{r rating by avatar x adjective}
 desc_avatar_adj <- ratings_clean %>%
   group_by(avatar, adjectif) %>%
   summarise(
     Mean = mean(note),
-    SD = sd(note),
+    SD = round(sd(note, na.rm = TRUE), 2),
+    N = n(),
     .groups = "drop"
-  )
+  ) %>%
+  arrange(avatar, adjectif)
 
 desc_avatar_adj
 ```
+
 ## Manip-check
 ### Congruence code
-```{r}
+We extract each avatar’s intended morphology from its filename (e.g., `_ATH_`, `_AVG_`) and define whether each rating is *congruent* (adjective matches intended morphology) or *incongruent*.
+```{r congruence code}
+morpho_levels <- c("athletic","average","overweight","obese","thin","skinny")
+
 ratings_clean <- ratings_clean %>%
   mutate(
     morpho_target = case_when(
@@ -141,14 +148,16 @@ ratings_clean <- ratings_clean %>%
       str_detect(avatar, "_SKINNY_") ~ "skinny",
       TRUE ~ NA_character_
     ),
-    morpho_target = factor(morpho_target,
-      levels = c("athletic","average","overweight","obese","thin","skinny")
-    ),
+    morpho_target = factor(morpho_target, levels = morpho_levels),
     congruence = ifelse(adjectif == morpho_target, "congruent", "incongruent"),
     congruence = factor(congruence, levels = c("incongruent", "congruent"))
   )
 # Check
-table(ratings_clean$morpho_target, useNA = "ifany")
+table_morpho <- table(ratings_clean$morpho_target, useNA = "ifany")
+table_congruence <- table(ratings_clean$congruence, useNA = "ifany")
+
+table_morpho
+table_congruence
 ```
 ### RM-ANOVA and planned contrasts
 ```{r}
