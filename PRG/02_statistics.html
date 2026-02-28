@@ -2807,13 +2807,20 @@ PATH = dirname(PRG_PATH)
 DAT_PATH = file.path(PATH, &quot;DAT&quot;)
 CLEAN_PATH = file.path(DAT_PATH, &quot;clean&quot;)
 RES_PATH = file.path(PATH, &quot;RES&quot;)</code></pre>
-<p>Open the files</p>
+</div>
+<div id="read-data" class="section level3" number="1.3">
+<h3><span class="header-section-number">1.3</span> Read data</h3>
 <pre class="r"><code>file_rdata &lt;- file.path(CLEAN_PATH, &quot;pre_manip_ratings.rdata&quot;)
 load(file_rdata)</code></pre>
 </div>
 </div>
 <div id="data-preparation" class="section level2" number="2">
 <h2><span class="header-section-number">2</span> Data preparation</h2>
+<div id="data-integrity-check" class="section level3" number="2.1">
+<h3><span class="header-section-number">2.1</span> Data integrity
+check</h3>
+<p>We verify that each participant contributes the expected number of
+ratings (12 avatars × 6 adjectives = 72).</p>
 <pre class="r"><code>ratings_long %&gt;%
   count(CASE) %&gt;%
   summarise(min_n = min(n), max_n = max(n))</code></pre>
@@ -2822,8 +2829,9 @@ load(file_rdata)</code></pre>
 {"columns":[{"label":["min_n"],"name":[1],"type":["int"],"align":["right"]},{"label":["max_n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"72","2":"72"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div id="variables-types" class="section level3" number="2.1">
-<h3><span class="header-section-number">2.1</span> Variables types</h3>
+</div>
+<div id="variables-types" class="section level3" number="2.2">
+<h3><span class="header-section-number">2.2</span> Variables types</h3>
 <pre class="r"><code>ratings_long &lt;- ratings_long %&gt;%
   mutate(
     CASE = as.factor(CASE),
@@ -2838,8 +2846,8 @@ load(file_rdata)</code></pre>
 ## Caused by warning:
 ## ! NAs introduced by coercion</code></pre>
 </div>
-<div id="exclusion" class="section level3" number="2.2">
-<h3><span class="header-section-number">2.2</span> Exclusion</h3>
+<div id="exclusion" class="section level3" number="2.3">
+<h3><span class="header-section-number">2.3</span> Exclusion</h3>
 <pre class="r"><code>excluded_participants &lt;- ratings_long %&gt;%
   filter(DE10 %in% c(2, 3)) %&gt;%
   distinct(CASE)

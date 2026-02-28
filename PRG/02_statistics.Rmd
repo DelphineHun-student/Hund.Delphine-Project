@@ -39,13 +39,15 @@ DAT_PATH = file.path(PATH, "DAT")
 CLEAN_PATH = file.path(DAT_PATH, "clean")
 RES_PATH = file.path(PATH, "RES")
 ```
-Open the files 
+### Read data 
 ```{r}
 file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings.rdata")
 load(file_rdata)
 ```
 
 ## Data preparation
+### Data integrity check
+We verify that each participant contributes the expected number of ratings (12 avatars × 6 adjectives = 72).
 ```{r check}
 ratings_long %>%
   count(CASE) %>%
