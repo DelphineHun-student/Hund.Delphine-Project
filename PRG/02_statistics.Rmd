@@ -160,6 +160,7 @@ table_morpho
 table_congruence
 ```
 ### RM-ANOVA
+For each avatar, we first test whether there is a global effect of adjective using a repeated-measures ANOVA (within-subject factor: adjective).  
 ```{r}
 adjectifs <- levels(ratings_clean$adjectif)
 
@@ -191,10 +192,14 @@ run_rm_anova <- function(data_av){ # data_av = data of ONE avatar
 ```
 
 ### Planned contrasts
+We then conduct planned contrasts comparing the target adjective (i.e., the adjective corresponding to the avatar’s intended morphology) against each of the five non-target adjectives.
+
+All post-hoc comparisons are corrected for multiple testing using the Holm method.
 ```{r}
-  # --- 2) Post-hoc ciblé congruent vs chacun des incongruents
-  # emmeans sur un modèle "simple" + erreurs intra-sujet via pairwise (paired)
-  # Ici, on fait les contrasts planifiés directement sur les moyennes marginales.
+run_planned_contrasts <- function(data_av, adjectives = adjectifs) {
+  target <- unique(data_av$morpho_target)
+  stopifnot(length(target) == 1)
+   .
   lm_mod <- lm(note ~ CASE + adjectif, data = data_av)  # CASE comme bloc (équiv RM)
   emm <- emmeans(lm_mod, ~ adjectif)
 
@@ -227,6 +232,8 @@ run_rm_anova <- function(data_av){ # data_av = data of ONE avatar
       p_adj = p.adjust(p_value, method = "holm"),
       significant = p_adj < .05
     )
+  ph
+}
 
   list(
     anova = aov_table %>% mutate(morpho_target = target),
