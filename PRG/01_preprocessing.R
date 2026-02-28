@@ -29,8 +29,10 @@ df_raw = read_excel(file_path)
 ADJ = c("athletic", "average", "overweight", "obese", "thin", "skinny")
 
 # VI columns
-vi_cols = sprintf("VI03_%02d", 1:12)
-pm_cols = sprintf("PM%02d_01", 1:72)
+n_slots <- 12
+n_adj <- 6
+vi_cols = sprintf("VI03_%02d",1:n_slots )
+pm_cols = sprintf("PM%02d_01", 1:(n_slots * n_adj))
 
 # Safety check
 stopifnot(all(vi_cols %in% names(df_raw)))
@@ -41,16 +43,15 @@ meta_cols = setdiff(names(df_raw), c(vi_cols, pm_cols))
 
 # Function to get PM columns (ratings) for each slot (1..12)
 get_pm_cols_for_slot <- function(s) {
-  sprintf("PM%02d_01", ((s - 1) * 6 + 1):(s * 6))
+  sprintf("PM%02d_01", ((s - 1) * n_adj + 1):(s * n_adj))
 }
 
-long_list = vector("list", 12)
+long_list = vector("list", n_slots)
 
 # Loop
-for (s in 1:12) {
+for (s in 1:n_slots) {
   avatar_col = sprintf("VI03_%02d", s)
   slot_pm    = get_pm_cols_for_slot(s)
-  
   tmp_long = df_raw %>%
     select(all_of(meta_cols), all_of(avatar_col), all_of(slot_pm)) %>%
     rename(avatar = all_of(avatar_col)) %>%
@@ -62,7 +63,7 @@ for (s in 1:12) {
     ) %>%
     mutate(
       pm_num   = as.integer(str_match(pm_item, "^PM(\\d{2})_01$")[,2]), #Extract adjective
-      adjectif = ADJ[((pm_num - 1) %% 6) + 1]
+      adjectif = ADJ[((pm_num - 1) %% n_adj) + 1]
     ) %>%
     select(-pm_item, -pm_num)
   
