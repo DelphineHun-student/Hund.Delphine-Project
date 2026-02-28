@@ -40,12 +40,12 @@ Set directory
 PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
 PATH = dirname(PRG_PATH)
 DAT_PATH = file.path(PATH, "DAT")
-LIB_PATH = file.path(PRG_PATH, "LIB")
+CLEAN_PATH = file.path(DAT_PATH, "clean")
 RES_PATH = file.path(PATH, "RES")
 ```
 Open the files 
 ```{r}
-file_rdata <- file.path(RES_PATH, "pre_manip_ratings.rdata")
+file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings.rdata")
 load(file_rdata)
 ```
 
@@ -139,16 +139,16 @@ desc_avatar_adj
 ratings_clean <- ratings_clean %>%
   mutate(
     morpho_target = case_when(
-      str_detect(avatar, "_ATH_")    ~ "athletique",
-      str_detect(avatar, "_AVG_")    ~ "moyen",
-      str_detect(avatar, "_OW_")     ~ "surpoids",
-      str_detect(avatar, "_OBESE_")  ~ "obesite",
-      str_detect(avatar, "_THIN_")   ~ "fine",
-      str_detect(avatar, "_SKINNY_") ~ "maigre",
+      str_detect(avatar, "_ATH_")    ~ "athletic",
+      str_detect(avatar, "_AVG_")    ~ "average",
+      str_detect(avatar, "_OW_")     ~ "overweight",
+      str_detect(avatar, "_OBESE_")  ~ "obese",
+      str_detect(avatar, "_THIN_")   ~ "thin",
+      str_detect(avatar, "_SKINNY_") ~ "skinny",
       TRUE ~ NA_character_
     ),
     morpho_target = factor(morpho_target,
-      levels = c("athletique","moyen","surpoids","obesite","fine","maigre")
+      levels = c("athletic","average","overweight","obese","thin","skinny")
     ),
     congruence = ifelse(adjectif == morpho_target, "congruent", "incongruent"),
     congruence = factor(congruence, levels = c("incongruent", "congruent"))
