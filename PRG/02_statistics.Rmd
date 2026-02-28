@@ -68,31 +68,29 @@ ratings_long <- ratings_long %>%
 ```
 
 ### Exclusion
-```{r Exclusion participant ; DE10 (TCA/BDD)}
+Participants reporting significant eating disorder or body dysmorphic symptoms (DE10 = 2 or 3) were excluded from further analyses.
+```{r exclusion participant ; DE10 (TCA/BDD)}
 excluded_participants <- ratings_long %>%
   filter(DE10 %in% c(2, 3)) %>%
   distinct(CASE)
 
+n_total <- ratings_long %>%
+  distinct(CASE) %>%
+  nrow()
+
 n_excluded <- nrow(excluded_participants)
+n_included <- n_total - n_excluded
 
 ratings_clean <- ratings_long %>%
   filter(!(CASE %in% excluded_participants$CASE))
 
-n_total <- ratings_long %>% distinct(CASE) %>% nrow()
-
-n_excluded <- ratings_long %>%
-  filter(DE10 %in% c(2, 3)) %>%
-  distinct(CASE) %>%
-  nrow()
-
-n_included <- n_total - n_excluded
-
-tibble(
+exclusion_summary <- tibble(
   Category = c("Total participants", 
                "Excluded (DE10 = 2 or 3)", 
                "Included in analyses"),
   N = c(n_total, n_excluded, n_included)
 )
+exclusion_summary
 ```
 
 ## Descriptive statistics
