@@ -48,21 +48,22 @@ load(file_rdata)
 ## Data preparation
 ### Data integrity check
 We verify that each participant contributes the expected number of ratings (12 avatars × 6 adjectives = 72).
-```{r check}
+```{r check rows}
 ratings_long %>%
   count(CASE) %>%
   summarise(min_n = min(n), max_n = max(n))
 ```
 ### Variables types
-```{r variable type def}
+We explicitly define variable types to ensure correct statistical modeling.
+```{r variable type definition}
 ratings_long <- ratings_long %>%
   mutate(
-    CASE = as.factor(CASE),
-    avatar = as.character(avatar),
-    adjectif = as.factor(adjectif),
-    note = as.numeric(note),
-    DE03x01 = as.numeric(DE03x01),
-    DE08 = as.numeric(DE08)
+    CASE = as.factor(CASE), # Participant identifier
+    avatar = as.character(avatar), # Avatar label
+    adjectif = as.factor(adjectif), # Within-subject factor
+    note = as.numeric(note), # Rating value
+    DE03x01 = as.numeric(DE03x01), # Age
+    DE08 = as.numeric(DE08) # Gender code (1 = Female ; 2 = Male ; 3 = Other)
   )
 ```
 

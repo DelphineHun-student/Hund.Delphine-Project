@@ -2832,6 +2832,10 @@ ratings (12 avatars × 6 adjectives = 72).</p>
 </div>
 <div id="variables-types" class="section level3" number="2.2">
 <h3><span class="header-section-number">2.2</span> Variables types</h3>
+<p>We explicitly define variable types to ensure correct statistical
+modeling: - CASE as factor (participant ID) - adjectif as factor
+(within-subject condition) - note as numeric (rating score) -
+demographic variables as numeric</p>
 <pre class="r"><code>ratings_long &lt;- ratings_long %&gt;%
   mutate(
     CASE = as.factor(CASE),
