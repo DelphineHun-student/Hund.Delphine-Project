@@ -2,9 +2,16 @@
 title: "Pre-manip V2 avatar morphologies : statistical analyses"
 output:
   html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    number_sections: true
     df_print: paged
 ---
-### Experiment summary
+
+## Experiment summary
 This pre-manipulation aims to validate the perceived morphology of dynamic avatars. Participants viewed 12 animated avatars (randomized order) and rated each avatar on 6 adjective-based dimensions: athletic, average, overweight, obese, thin, skinny.
 
 The mapping between ratings and avatars is reconstructed using:
@@ -14,21 +21,7 @@ The mapping between ratings and avatars is reconstructed using:
 ### Hypotheses 
 For each avatar, ratings will be higher on the adjective matching its intended morphology than on the non-matching adjectives (congruent > incongruent). 
 
-### Summary
-1. [Initiate](#initiate)
-
-2. [Data preparation](#data-preparation)
-   
-3. [Exclusion](#exclusion) 
-
-4. [Descriptive statistics](#descriptive-statistics) 
-
-5. [Manip-Check](#manip-check)  
-
-6. [Plots and export](#plots-and-export)  
-
-
-## 1. Initiate
+## Initiate
 <a name="initiate"></a>
 Library 
 ```{r}
