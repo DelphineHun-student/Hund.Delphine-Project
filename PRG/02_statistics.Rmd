@@ -31,6 +31,7 @@ For each avatar, ratings will be higher on the adjective matching its intended m
 easypackages::libraries("tidyverse", "DescTools", "readxl", "purrr","emmeans",
                         "dplyr", "tidyr", "stringr", "openxlsx", "ggplot2")
 ```
+
 ### Set directory 
 ```{r}
 PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
@@ -39,6 +40,7 @@ DAT_PATH = file.path(PATH, "DAT")
 CLEAN_PATH = file.path(DAT_PATH, "clean")
 RES_PATH = file.path(PATH, "RES")
 ```
+
 ### Read data 
 ```{r}
 file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings.rdata")
@@ -95,28 +97,24 @@ exclusion_summary
 
 ## Descriptive statistics
 ### Demographics: sample description
-```{r}
-ratings_clean %>%
-  distinct(CASE, DE03x01, DE08) %>%
+Age (mean ± SD) and gender distribution for the final included sample.
+```{r demographic summary}
+demographics <- ratings_clean %>%
+  distinct(CASE, DE03x01, DE08)
+
+demographics_summary <- demographics %>%    
   summarise(
-    Mean_age = mean(DE03x01, na.rm = TRUE),
-    SD_age = sd(DE03x01, na.rm = TRUE),
+    N_total = n(),
+    Mean_age = round(mean(DE03x01, na.rm = TRUE), 2),
+    SD_age = round(sd(DE03x01, na.rm = TRUE), 3),
     N_female = sum(DE08 == 1, na.rm = TRUE),
     N_male   = sum(DE08 == 2, na.rm = TRUE),
     N_other  = sum(DE08 == 3,na.rm = TRUE)
   )
+
+demographics_summary
 ```
-### Ratings by adjective
-```{r}
-ratings_clean %>%
-  group_by(adjectif) %>%
-  summarise(
-    Mean = mean(note),
-    SD = sd(note),
-    N = n(),
-    .groups = "drop"
-  )
-```
+
 ### Ratings by avatar × adjective
 ```{r}
 desc_avatar_adj <- ratings_clean %>%
