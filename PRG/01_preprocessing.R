@@ -78,7 +78,6 @@ ratings_long = bind_rows(long_list) %>%
   )
 
 # Export cleaned data
-
 # RData
 save(ratings_long, file = file.path(CLEAN_PATH, "pre_manip_ratings.rdata"))
 
