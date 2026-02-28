@@ -1,0 +1,101 @@
+################################################################################
+#################### Body Perception - Pre-manip ###################
+################################################################################
+
+
+### Library
+library(readxl)
+library(dplyr)
+library(stringr)
+library(openxlsx)
+library(tidyr)
+library(ggplot2)
+
+### Set directory 
+PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
+PATH = dirname(PRG_PATH)
+DAT_PATH = file.path(PATH, "DAT")
+LIB_PATH = file.path(PRG_PATH, "LIB")
+RES_PATH = file.path(PATH, "RES")
+
+### Define participants' id 
+file_name = "data_BodyPerception.xlsx"
+file_path = file.path(DAT_PATH, file_name)
+
+df_raw = readxl::read_excel(file_path)
+
+ADJ = c("athletique", "moyen", "surpoids", "obesite", "fine", "maigre")
+
+# VI columns
+vi_cols = sprintf("VI03_%02d", 1:12)
+
+pm_cols = sprintf("PM%02d_01", 1:72)
+
+stopifnot(all(vi_cols %in% names(df_raw)))
+stopifnot(all(pm_cols %in% names(df_raw)))
+
+
+# Colonnes méta (démographiques, ID, etc.)
+meta_cols = setdiff(names(df_raw), c(vi_cols, pm_cols))
+
+
+# Colonnes PM correspondant à un slot (1..12)
+get_pm_cols_for_slot <- function(s) {
+  sprintf("PM%02d_01", ((s - 1) * 6 + 1):(s * 6))
+}
+
+long_list = vector("list", 12)
+
+for (s in 1:12) {
+  
+  avatar_col = sprintf("VI03_%02d", s)
+  slot_pm    = get_pm_cols_for_slot(s)
+  
+  tmp_long = df_raw %>%
+    select(all_of(meta_cols), all_of(avatar_col), all_of(slot_pm)) %>%
+    rename(avatar = all_of(avatar_col)) %>%
+    mutate(slot = s) %>%
+    pivot_longer(
+      cols = all_of(slot_pm),
+      names_to = "pm_item",
+      values_to = "note"
+    ) %>%
+    mutate(
+      pm_num   = as.integer(str_match(pm_item, "^PM(\\d{2})_01$")[,2]),
+      adjectif = ADJ[((pm_num - 1) %% 6) + 1]
+    ) %>%
+    select(-pm_item, -pm_num)
+  
+  long_list[[s]] = tmp_long
+}
+
+ratings_long = bind_rows(long_list) %>%
+  mutate(
+    avatar   = as.character(avatar),
+    adjectif = factor(adjectif, levels = ADJ)
+  )
+
+setwd(RES_PATH)
+
+save(ratings_long, file = "pre_manip_ratings.rdata")
+
+# CSV (lisible partout)
+write.csv(ratings_long,
+          file = "pre_manip_ratings.csv",
+          row.names = FALSE)
+
+# Excel
+wb = createWorkbook()
+addWorksheet(wb, "ratings_long")
+writeData(wb, "ratings_long", ratings_long)
+saveWorkbook(wb,
+             file = "pre_manip_ratings.xlsx",
+             overwrite = TRUE)
+
+########################### 6) Quick sanity check ##############################
+
+print(head(ratings_long))
+print(table(ratings_long$adjectif))
+
+
+

@@ -1,0 +1,11 @@
+# Dossiers à ignorer
+DAT/
+RES/
+
+# Fichiers R temporaires
+.Rhistory
+.RData
+.Rproj.user/
+
+# Mac
+.DS_Store

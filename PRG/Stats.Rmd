@@ -1,0 +1,344 @@
+---
+title: "Pre-manip V2 avatar morphologies : statistical analyses"
+output:
+  html_document:
+    df_print: paged
+---
+### Experiment summary
+This pre-manipulation aims to validate the perceived morphology of dynamic avatars. Participants viewed 12 animated avatars (randomized order) and rated each avatar on 6 adjective-based dimensions: athletic, average, overweight, obese, thin, skinny.
+
+The mapping between ratings and avatars is reconstructed using:
+- VI03_01 ... VI03_12: the avatar identifier presented at each position (slot)
+- PM01_01 ... PM72_01: 72 ratings corresponding to 12 blocks of 6 adjectives (fixed order within each block)
+
+### Hypotheses 
+For each avatar, ratings will be higher on the adjective matching its intended morphology than on the non-matching adjectives (congruent > incongruent). 
+
+### Summary
+1. [Initiate](#initiate)
+
+2. [Data preparation](#data-preparation)
+   
+3. [Exclusion](#exclusion) 
+
+4. [Descriptive statistics](#descriptive-statistics) 
+
+5. [Manip-Check](#manip-check)  
+
+6. [Plots and export](#plots-and-export)  
+
+
+## 1. Initiate
+<a name="initiate"></a>
+Library 
+```{r}
+easypackages::libraries("tidyverse", "DescTools", "readxl", "purrr","emmeans",
+                        "dplyr", "tidyr", "stringr", "openxlsx", "ggplot2")
+```
+Set directory 
+```{r}
+PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
+PATH = dirname(PRG_PATH)
+DAT_PATH = file.path(PATH, "DAT")
+LIB_PATH = file.path(PRG_PATH, "LIB")
+RES_PATH = file.path(PATH, "RES")
+```
+Open the files 
+```{r}
+file_rdata <- file.path(RES_PATH, "pre_manip_ratings.rdata")
+load(file_rdata)
+```
+
+## 2. Data preparation
+<a name="Data preparation"></a>
+```{r check}
+ratings_long %>%
+  count(CASE) %>%
+  summarise(min_n = min(n), max_n = max(n))
+```
+
+```{r variable type def}
+ratings_long <- ratings_long %>%
+  mutate(
+    CASE = as.factor(CASE),
+    avatar = as.character(avatar),
+    adjectif = as.factor(adjectif),
+    note = as.numeric(note),
+    DE03x01 = as.numeric(DE03x01),
+    DE08 = as.numeric(DE08)
+  )
+```
+### 3. Exclusion
+<a name="Exclusion"></a>
+```{r Exclusion participant ; DE10 (TCA/BDD)}
+excluded_participants <- ratings_long %>%
+  filter(DE10 %in% c(2, 3)) %>%
+  distinct(CASE)
+
+n_excluded <- nrow(excluded_participants)
+
+ratings_clean <- ratings_long %>%
+  filter(!(CASE %in% excluded_participants$CASE))
+
+n_total <- ratings_long %>% distinct(CASE) %>% nrow()
+
+n_excluded <- ratings_long %>%
+  filter(DE10 %in% c(2, 3)) %>%
+  distinct(CASE) %>%
+  nrow()
+
+n_included <- n_total - n_excluded
+
+tibble(
+  Category = c("Total participants", 
+               "Excluded (DE10 = 2 or 3)", 
+               "Included in analyses"),
+  N = c(n_total, n_excluded, n_included)
+)
+```
+
+### 4. Descriptive statistics
+<a name="Descriptive statistics"></a>
+```{r}
+ratings_clean %>%
+  distinct(CASE, DE03x01, DE08) %>%
+  summarise(
+    Mean_age = mean(DE03x01, na.rm = TRUE),
+    SD_age = sd(DE03x01, na.rm = TRUE),
+    N_female = sum(DE08 == 1, na.rm = TRUE),
+    N_male   = sum(DE08 == 2, na.rm = TRUE),
+    N_other  = sum(DE08 == 3,na.rm = TRUE)
+  )
+```
+
+```{r}
+ratings_clean %>%
+  group_by(adjectif) %>%
+  summarise(
+    Mean = mean(note),
+    SD = sd(note),
+    N = n(),
+    .groups = "drop"
+  )
+```
+
+```{r}
+desc_avatar_adj <- ratings_clean %>%
+  group_by(avatar, adjectif) %>%
+  summarise(
+    Mean = mean(note),
+    SD = sd(note),
+    .groups = "drop"
+  )
+
+desc_avatar_adj
+```
+### 5. Manip-check
+<a name="Manip-check"></a>
+```{r}
+ratings_clean <- ratings_clean %>%
+  mutate(
+    morpho_target = case_when(
+      str_detect(avatar, "_ATH_")    ~ "athletique",
+      str_detect(avatar, "_AVG_")    ~ "moyen",
+      str_detect(avatar, "_OW_")     ~ "surpoids",
+      str_detect(avatar, "_OBESE_")  ~ "obesite",
+      str_detect(avatar, "_THIN_")   ~ "fine",
+      str_detect(avatar, "_SKINNY_") ~ "maigre",
+      TRUE ~ NA_character_
+    ),
+    morpho_target = factor(morpho_target,
+      levels = c("athletique","moyen","surpoids","obesite","fine","maigre")
+    ),
+    congruence = ifelse(adjectif == morpho_target, "congruent", "incongruent"),
+    congruence = factor(congruence, levels = c("incongruent", "congruent"))
+  )
+# Check
+table(ratings_clean$morpho_target, useNA = "ifany")
+```
+
+
+```{r}
+adjectifs <- levels(ratings_clean$adjectif)
+
+run_rm_anova_posthoc <- function(data_av){
+  # data_av = données d'UN avatar
+  target <- unique(data_av$morpho_target)
+  stopifnot(length(target) == 1)
+
+  # --- 1) RM-ANOVA via aov avec Error(CASE/adjectif)
+  # (on force CASE factor au cas où)
+  data_av <- data_av %>% mutate(CASE = as.factor(CASE))
+
+  aov_mod <- aov(note ~ adjectif + Error(CASE/adjectif), data = data_av)
+  aov_sum <- summary(aov_mod)
+
+  # Extraction "safe" du test pour adjectif
+  # (selon R, c'est généralement dans la partie Error: CASE:adjectif)
+  aov_table <- tryCatch({
+    as.data.frame(aov_sum[["Error: CASE:adjectif"]][[1]]) %>%
+      tibble::rownames_to_column("term") %>%
+      filter(term == "adjectif") %>%
+      transmute(
+        df1 = Df,
+        df2 = aov_sum[["Error: CASE:adjectif"]][[1]]["Residuals","Df"],
+        F = `F value`,
+        p_value = `Pr(>F)`
+      )
+  }, error = function(e){
+    tibble(df1 = NA, df2 = NA, F = NA, p_value = NA)
+  })
+
+  # --- 2) Post-hoc ciblé congruent vs chacun des incongruents
+  # emmeans sur un modèle "simple" + erreurs intra-sujet via pairwise (paired)
+  # Ici, on fait les contrasts planifiés directement sur les moyennes marginales.
+  lm_mod <- lm(note ~ CASE + adjectif, data = data_av)  # CASE comme bloc (équiv RM)
+  emm <- emmeans(lm_mod, ~ adjectif)
+
+  # contrasts: target - other (donc congruent > incongruent attendu)
+  others <- adjectifs[adjectifs != target]
+
+  contr_list <- setNames(
+    lapply(others, function(adj){
+      # vecteur de contraste : target - adj
+      v <- rep(0, length(adjectifs)); names(v) <- adjectifs
+      v[target] <- 1
+      v[adj] <- -1
+      v
+    }),
+    paste0(target, " - ", others)
+  )
+
+  ph <- contrast(emm, contr_list) %>%
+    as.data.frame() %>%
+    transmute(
+      morpho_target = target,
+      compared_to = str_replace(contrast, paste0("^", target, " - "), ""),
+      estimate = estimate,
+      SE = SE,
+      df = df,
+      t = t.ratio,
+      p_value = p.value
+    ) %>%
+    mutate(
+      p_adj = p.adjust(p_value, method = "holm"),
+      significant = p_adj < .05
+    )
+
+  list(
+    anova = aov_table %>% mutate(morpho_target = target),
+    posthoc = ph
+  )
+}
+
+out <- ratings_clean %>%
+  group_by(avatar) %>%
+  group_modify(~{
+    res <- run_rm_anova_posthoc(.x)
+    tibble(
+      anova = list(res$anova),
+      posthoc = list(res$posthoc)
+    )
+  }) %>%
+  ungroup()
+
+anova_by_avatar <- out %>% tidyr::unnest(anova) %>% select(avatar, morpho_target, df1, df2, F, p_value)
+posthoc_by_avatar <- out %>% tidyr::unnest(posthoc) %>% select(avatar, morpho_target, compared_to, estimate, t, p_value, p_adj, significant)
+
+anova_by_avatar
+posthoc_by_avatar
+```
+```{r}
+avatar_validation <- posthoc_by_avatar %>%
+  group_by(avatar) %>%
+  summarise(all_contrasts_significant = all(significant), .groups = "drop")
+
+avatar_validation
+```
+### 6. Plots and export
+<a name="Plots and export"></a>
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(purrr)
+library(stringr)
+
+# 1) Moyennes + SEM par avatar × adjectif
+plot_data <- ratings_clean %>%
+  group_by(avatar, adjectif, morpho_target) %>%
+  summarise(
+    mean_note = mean(note, na.rm = TRUE),
+    sem = sd(note, na.rm = TRUE) / sqrt(sum(!is.na(note))),
+    .groups = "drop"
+  )
+
+# 2) Labels de significativité basés sur les post-hoc (Holm corrigé)
+sig_labels <- posthoc_by_avatar %>%
+  mutate(label = ifelse(significant, "*", "ns")) %>%
+  left_join(
+    plot_data,
+    by = c("avatar", "morpho_target", "compared_to" = "adjectif")
+  ) %>%
+  mutate(
+    y_pos = mean_note + sem + 2  # ajuste si les labels se chevauchent
+  )
+
+# 3) Fonction plot 1 avatar
+plot_one_avatar <- function(av_id){
+
+  pd_av <- plot_data %>% filter(avatar == av_id)
+  sg_av <- sig_labels %>% filter(avatar == av_id)
+
+  ggplot(pd_av, aes(x = adjectif, y = mean_note)) +
+    geom_col(aes(fill = adjectif == morpho_target), width = 0.7) +
+    geom_errorbar(aes(ymin = mean_note - sem, ymax = mean_note + sem), width = 0.2) +
+    geom_text(
+      data = sg_av,
+      aes(x = compared_to, y = y_pos, label = label),
+      size = 4
+    ) +
+    scale_fill_manual(
+      values = c("grey70", "steelblue"),
+      labels = c("Incongruent", "Congruent"),
+      name = ""
+    ) +
+    labs(
+      title = paste("Avatar:", av_id),
+      subtitle = "RM-ANOVA + planned contrasts (congruent vs each incongruent, Holm-corrected)",
+      x = "Adjective",
+      y = "Mean rating"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      legend.position = "top"
+    )
+}
+
+# 4) Afficher tous les avatars
+avatar_list <- sort(unique(plot_data$avatar))
+walk(avatar_list, ~ print(plot_one_avatar(.x)))
+
+PLOTS_DIR <- file.path(RES_PATH, "plots_avatar")
+if (!dir.exists(PLOTS_DIR)) dir.create(PLOTS_DIR, recursive = TRUE)
+
+avatar_list <- sort(unique(plot_data$avatar))
+
+# Export — un fichier PNG par avatar
+walk(avatar_list, function(av){
+  p <- plot_one_avatar(av)
+
+  safe_name <- str_replace_all(av, "[^A-Za-z0-9_-]", "_")
+  out_png <- file.path(PLOTS_DIR, paste0("plot_", safe_name, ".png"))
+
+  ggsave(
+    filename = out_png,
+    plot = p,
+    width = 10, height = 6, units = "in",
+    dpi = 300, bg = "white"
+  )
+})
+
+```
+
