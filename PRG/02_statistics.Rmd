@@ -159,26 +159,20 @@ table_congruence <- table(ratings_clean$congruence, useNA = "ifany")
 table_morpho
 table_congruence
 ```
-### RM-ANOVA and planned contrasts
+### RM-ANOVA
 ```{r}
 adjectifs <- levels(ratings_clean$adjectif)
 
-run_rm_anova_posthoc <- function(data_av){
-  # data_av = données d'UN avatar
-  target <- unique(data_av$morpho_target)
-  stopifnot(length(target) == 1)
-
-  # --- 1) RM-ANOVA via aov avec Error(CASE/adjectif)
-  # (on force CASE factor au cas où)
+# RM-ANOVA per avatar (global effect of adjective)
+run_rm_anova <- function(data_av){ # data_av = data of ONE avatar
   data_av <- data_av %>% mutate(CASE = as.factor(CASE))
 
   aov_mod <- aov(note ~ adjectif + Error(CASE/adjectif), data = data_av)
   aov_sum <- summary(aov_mod)
 
-  # Extraction "safe" du test pour adjectif
-  # (selon R, c'est généralement dans la partie Error: CASE:adjectif)
+  # Extract the adjective effect (within-subject)
   aov_table <- tryCatch({
-    as.data.frame(aov_sum[["Error: CASE:adjectif"]][[1]]) %>%
+    tab <- as.data.frame(aov_sum[["Error: CASE:adjectif"]][[1]]) %>%
       tibble::rownames_to_column("term") %>%
       filter(term == "adjectif") %>%
       transmute(
@@ -187,10 +181,17 @@ run_rm_anova_posthoc <- function(data_av){
         F = `F value`,
         p_value = `Pr(>F)`
       )
+    tab
   }, error = function(e){
     tibble(df1 = NA, df2 = NA, F = NA, p_value = NA)
   })
+  
+  aov_table
+}
+```
 
+### Planned contrasts
+```{r}
   # --- 2) Post-hoc ciblé congruent vs chacun des incongruents
   # emmeans sur un modèle "simple" + erreurs intra-sujet via pairwise (paired)
   # Ici, on fait les contrasts planifiés directement sur les moyennes marginales.
@@ -250,6 +251,7 @@ posthoc_by_avatar <- out %>% tidyr::unnest(posthoc) %>% select(avatar, morpho_ta
 anova_by_avatar
 posthoc_by_avatar
 ```
+
 ### Validation summary
 ```{r}
 avatar_validation <- posthoc_by_avatar %>%
