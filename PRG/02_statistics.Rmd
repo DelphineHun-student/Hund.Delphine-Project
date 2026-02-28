@@ -1,5 +1,7 @@
 ---
-title: "Pre-manip V2 avatar morphologies : statistical analyses"
+title: "Body perception pre-manip V2 : statistical analyses"
+author: "Delphine Hund"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
   html_document:
     toc: true
@@ -11,24 +13,25 @@ output:
     df_print: paged
 ---
 
-## Experiment summary
+<strong> Experiment summary </strong>
+
 This pre-manipulation aims to validate the perceived morphology of dynamic avatars. Participants viewed 12 animated avatars (randomized order) and rated each avatar on 6 adjective-based dimensions: athletic, average, overweight, obese, thin, skinny.
 
 The mapping between ratings and avatars is reconstructed using:
 - VI03_01 ... VI03_12: the avatar identifier presented at each position (slot)
 - PM01_01 ... PM72_01: 72 ratings corresponding to 12 blocks of 6 adjectives (fixed order within each block)
 
-### Hypotheses 
+<strong> Hypotheses </strong>
+
 For each avatar, ratings will be higher on the adjective matching its intended morphology than on the non-matching adjectives (congruent > incongruent). 
 
 ## Initiate
-<a name="initiate"></a>
-Library 
+### Packages 
 ```{r}
 easypackages::libraries("tidyverse", "DescTools", "readxl", "purrr","emmeans",
                         "dplyr", "tidyr", "stringr", "openxlsx", "ggplot2")
 ```
-Set directory 
+### Set directory 
 ```{r}
 PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
 PATH = dirname(PRG_PATH)
@@ -42,14 +45,13 @@ file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings.rdata")
 load(file_rdata)
 ```
 
-## 2. Data preparation
-<a name="Data preparation"></a>
+## Data preparation
 ```{r check}
 ratings_long %>%
   count(CASE) %>%
   summarise(min_n = min(n), max_n = max(n))
 ```
-
+### Variables types
 ```{r variable type def}
 ratings_long <- ratings_long %>%
   mutate(
@@ -61,8 +63,8 @@ ratings_long <- ratings_long %>%
     DE08 = as.numeric(DE08)
   )
 ```
-### 3. Exclusion
-<a name="Exclusion"></a>
+
+### Exclusion
 ```{r Exclusion participant ; DE10 (TCA/BDD)}
 excluded_participants <- ratings_long %>%
   filter(DE10 %in% c(2, 3)) %>%
@@ -90,8 +92,8 @@ tibble(
 )
 ```
 
-### 4. Descriptive statistics
-<a name="Descriptive statistics"></a>
+## Descriptive statistics
+### Demographics: sample description
 ```{r}
 ratings_clean %>%
   distinct(CASE, DE03x01, DE08) %>%
@@ -103,7 +105,7 @@ ratings_clean %>%
     N_other  = sum(DE08 == 3,na.rm = TRUE)
   )
 ```
-
+### Ratings by adjective
 ```{r}
 ratings_clean %>%
   group_by(adjectif) %>%
@@ -114,7 +116,7 @@ ratings_clean %>%
     .groups = "drop"
   )
 ```
-
+### Ratings by avatar × adjective
 ```{r}
 desc_avatar_adj <- ratings_clean %>%
   group_by(avatar, adjectif) %>%
@@ -126,8 +128,8 @@ desc_avatar_adj <- ratings_clean %>%
 
 desc_avatar_adj
 ```
-### 5. Manip-check
-<a name="Manip-check"></a>
+## Manip-check
+### Congruence code
 ```{r}
 ratings_clean <- ratings_clean %>%
   mutate(
@@ -149,8 +151,7 @@ ratings_clean <- ratings_clean %>%
 # Check
 table(ratings_clean$morpho_target, useNA = "ifany")
 ```
-
-
+### RM-ANOVA and planned contrasts
 ```{r}
 adjectifs <- levels(ratings_clean$adjectif)
 
@@ -241,6 +242,7 @@ posthoc_by_avatar <- out %>% tidyr::unnest(posthoc) %>% select(avatar, morpho_ta
 anova_by_avatar
 posthoc_by_avatar
 ```
+### Validation summary
 ```{r}
 avatar_validation <- posthoc_by_avatar %>%
   group_by(avatar) %>%
@@ -248,9 +250,7 @@ avatar_validation <- posthoc_by_avatar %>%
 
 avatar_validation
 ```
-### 6. Plots and export
-<a name="Plots and export"></a>
-
+## Plots and export
 ```{r}
 library(dplyr)
 library(ggplot2)

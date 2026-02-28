@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Delphine Hund" />
 
+<meta name="date" content="2026-02-28" />
 
-<title>Pre-manip V2 avatar morphologies : statistical analyses</title>
+<title>Body perception pre-manip V2 : statistical analyses</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -2748,15 +2750,15 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">Pre-manip V2 avatar morphologies :
-statistical analyses</h1>
+<h1 class="title toc-ignore">Body perception pre-manip V2 : statistical
+analyses</h1>
+<h4 class="author">Delphine Hund</h4>
+<h4 class="date">February 28, 2026</h4>
 
 </div>
 
 
-<div id="experiment-summary" class="section level3" number="0.1">
-<h3><span class="header-section-number">0.1</span> Experiment
-summary</h3>
+<p><strong> Experiment summary </strong></p>
 <p>This pre-manipulation aims to validate the perceived morphology of
 dynamic avatars. Participants viewed 12 animated avatars (randomized
 order) and rated each avatar on 6 adjective-based dimensions: athletic,
@@ -2765,16 +2767,14 @@ average, overweight, obese, thin, skinny.</p>
 VI03_01 … VI03_12: the avatar identifier presented at each position
 (slot) - PM01_01 … PM72_01: 72 ratings corresponding to 12 blocks of 6
 adjectives (fixed order within each block)</p>
-</div>
-<div id="hypotheses" class="section level3" number="0.2">
-<h3><span class="header-section-number">0.2</span> Hypotheses</h3>
+<p><strong> Hypotheses </strong></p>
 <p>For each avatar, ratings will be higher on the adjective matching its
 intended morphology than on the non-matching adjectives (congruent &gt;
 incongruent).</p>
-</div>
 <div id="initiate" class="section level2" number="1">
 <h2><span class="header-section-number">1</span> Initiate</h2>
-<p><a name="initiate"></a> Library</p>
+<div id="packages" class="section level3" number="1.1">
+<h3><span class="header-section-number">1.1</span> Packages</h3>
 <pre class="r"><code>easypackages::libraries(&quot;tidyverse&quot;, &quot;DescTools&quot;, &quot;readxl&quot;, &quot;purrr&quot;,&quot;emmeans&quot;,
                         &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;stringr&quot;, &quot;openxlsx&quot;, &quot;ggplot2&quot;)</code></pre>
 <pre><code>## Loading required package: tidyverse</code></pre>
@@ -2799,7 +2799,9 @@ incongruent).</p>
 ## See &#39;? untidy&#39;
 ## Loading required package: openxlsx
 ## All packages loaded successfully</code></pre>
-<p>Set directory</p>
+</div>
+<div id="set-directory" class="section level3" number="1.2">
+<h3><span class="header-section-number">1.2</span> Set directory</h3>
 <pre class="r"><code>PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
 PATH = dirname(PRG_PATH)
 DAT_PATH = file.path(PATH, &quot;DAT&quot;)
@@ -2809,10 +2811,9 @@ RES_PATH = file.path(PATH, &quot;RES&quot;)</code></pre>
 <pre class="r"><code>file_rdata &lt;- file.path(CLEAN_PATH, &quot;pre_manip_ratings.rdata&quot;)
 load(file_rdata)</code></pre>
 </div>
+</div>
 <div id="data-preparation" class="section level2" number="2">
-<h2><span class="header-section-number">2</span> 2. Data
-preparation</h2>
-<p><a name="Data preparation"></a></p>
+<h2><span class="header-section-number">2</span> Data preparation</h2>
 <pre class="r"><code>ratings_long %&gt;%
   count(CASE) %&gt;%
   summarise(min_n = min(n), max_n = max(n))</code></pre>
@@ -2821,6 +2822,8 @@ preparation</h2>
 {"columns":[{"label":["min_n"],"name":[1],"type":["int"],"align":["right"]},{"label":["max_n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"72","2":"72"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+<div id="variables-types" class="section level3" number="2.1">
+<h3><span class="header-section-number">2.1</span> Variables types</h3>
 <pre class="r"><code>ratings_long &lt;- ratings_long %&gt;%
   mutate(
     CASE = as.factor(CASE),
@@ -2834,9 +2837,9 @@ preparation</h2>
 ## ℹ In argument: `DE03x01 = as.numeric(DE03x01)`.
 ## Caused by warning:
 ## ! NAs introduced by coercion</code></pre>
-<div id="exclusion" class="section level3" number="2.1">
-<h3><span class="header-section-number">2.1</span> 3. Exclusion</h3>
-<p><a name="Exclusion"></a></p>
+</div>
+<div id="exclusion" class="section level3" number="2.2">
+<h3><span class="header-section-number">2.2</span> Exclusion</h3>
 <pre class="r"><code>excluded_participants &lt;- ratings_long %&gt;%
   filter(DE10 %in% c(2, 3)) %&gt;%
   distinct(CASE)
@@ -2867,10 +2870,13 @@ tibble(
   </script>
 </div>
 </div>
-<div id="descriptive-statistics" class="section level3" number="2.2">
-<h3><span class="header-section-number">2.2</span> 4. Descriptive
-statistics</h3>
-<p><a name="Descriptive statistics"></a></p>
+</div>
+<div id="descriptive-statistics" class="section level2" number="3">
+<h2><span class="header-section-number">3</span> Descriptive
+statistics</h2>
+<div id="demographics-sample-description" class="section level3" number="3.1">
+<h3><span class="header-section-number">3.1</span> Demographics: sample
+description</h3>
 <pre class="r"><code>ratings_clean %&gt;%
   distinct(CASE, DE03x01, DE08) %&gt;%
   summarise(
@@ -2885,6 +2891,10 @@ statistics</h3>
 {"columns":[{"label":["Mean_age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["SD_age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["N_female"],"name":[3],"type":["int"],"align":["right"]},{"label":["N_male"],"name":[4],"type":["int"],"align":["right"]},{"label":["N_other"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"36.68182","2":"15.10089","3":"12","4":"10","5":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="ratings-by-adjective" class="section level3" number="3.2">
+<h3><span class="header-section-number">3.2</span> Ratings by
+adjective</h3>
 <pre class="r"><code>ratings_clean %&gt;%
   group_by(adjectif) %&gt;%
   summarise(
@@ -2898,6 +2908,10 @@ statistics</h3>
 {"columns":[{"label":["adjectif"],"name":[1],"type":["fct"],"align":["left"]},{"label":["Mean"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["SD"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["N"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"athletic","2":"36.74275","3":"35.53471","4":"276"},{"1":"average","2":"39.83696","3":"36.69083","4":"276"},{"1":"overweight","2":"40.54348","3":"42.95039","4":"276"},{"1":"obese","2":"33.72464","3":"40.90597","4":"276"},{"1":"thin","2":"41.37319","3":"40.70678","4":"276"},{"1":"skinny","2":"23.92754","3":"36.52021","4":"276"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="ratings-by-avatar-adjective" class="section level3" number="3.3">
+<h3><span class="header-section-number">3.3</span> Ratings by avatar ×
+adjective</h3>
 <pre class="r"><code>desc_avatar_adj &lt;- ratings_clean %&gt;%
   group_by(avatar, adjectif) %&gt;%
   summarise(
@@ -2913,9 +2927,11 @@ desc_avatar_adj</code></pre>
   </script>
 </div>
 </div>
-<div id="manip-check" class="section level3" number="2.3">
-<h3><span class="header-section-number">2.3</span> 5. Manip-check</h3>
-<p><a name="Manip-check"></a></p>
+</div>
+<div id="manip-check" class="section level2" number="4">
+<h2><span class="header-section-number">4</span> Manip-check</h2>
+<div id="congruence-code" class="section level3" number="4.1">
+<h3><span class="header-section-number">4.1</span> Congruence code</h3>
 <pre class="r"><code>ratings_clean &lt;- ratings_clean %&gt;%
   mutate(
     morpho_target = case_when(
@@ -2938,6 +2954,10 @@ table(ratings_clean$morpho_target, useNA = &quot;ifany&quot;)</code></pre>
 <pre><code>## 
 ##   athletic    average overweight      obese       thin     skinny 
 ##        276        276        276        276        276        276</code></pre>
+</div>
+<div id="rm-anova-and-planned-contrasts" class="section level3" number="4.2">
+<h3><span class="header-section-number">4.2</span> RM-ANOVA and planned
+contrasts</h3>
 <pre class="r"><code>adjectifs &lt;- levels(ratings_clean$adjectif)
 
 run_rm_anova_posthoc &lt;- function(data_av){
@@ -3036,6 +3056,10 @@ anova_by_avatar</code></pre>
 {"columns":[{"label":["avatar"],"name":[1],"type":["chr"],"align":["left"]},{"label":["morpho_target"],"name":[2],"type":["fct"],"align":["left"]},{"label":["compared_to"],"name":[3],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["t"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p_value"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["p_adj"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["significant"],"name":[8],"type":["lgl"],"align":["right"]}],"data":[{"1":"F_ATH_W_D.mp4","2":"athletic","3":"average","4":"11.608696","5":"1.5024921","6":"1.358355e-01","7":"1.358355e-01","8":"FALSE"},{"1":"F_ATH_W_D.mp4","2":"athletic","3":"overweight","4":"67.913043","5":"8.7898602","6":"2.285877e-14","7":"6.857630e-14","8":"TRUE"},{"1":"F_ATH_W_D.mp4","2":"athletic","3":"obese","4":"72.913043","5":"9.4370010","6":"7.639836e-16","7":"3.819918e-15","8":"TRUE"},{"1":"F_ATH_W_D.mp4","2":"athletic","3":"thin","4":"33.347826","5":"4.3161477","6":"3.485522e-05","7":"6.971044e-05","8":"TRUE"},{"1":"F_ATH_W_D.mp4","2":"athletic","3":"skinny","4":"71.652174","5":"9.2738090","6":"1.804620e-15","7":"7.218481e-15","8":"TRUE"},{"1":"F_AVG_W_D.mp4","2":"average","3":"athletic","4":"35.869565","5":"5.3564161","6":"4.704669e-07","7":"9.409338e-07","8":"TRUE"},{"1":"F_AVG_W_D.mp4","2":"average","3":"overweight","4":"34.043478","5":"5.0837258","6":"1.530131e-06","7":"1.530131e-06","8":"TRUE"},{"1":"F_AVG_W_D.mp4","2":"average","3":"obese","4":"54.478261","5":"8.1352598","6":"6.843728e-13","7":"2.737491e-12","8":"TRUE"},{"1":"F_AVG_W_D.mp4","2":"average","3":"thin","4":"41.956522","5":"6.2653836","6":"7.421792e-09","7":"2.226538e-08","8":"TRUE"},{"1":"F_AVG_W_D.mp4","2":"average","3":"skinny","4":"63.521739","5":"9.4857259","6":"5.909014e-16","7":"2.954507e-15","8":"TRUE"},{"1":"F_OBESE_W_D.mp4","2":"obese","3":"athletic","4":"94.304348","5":"24.8483630","6":"6.207046e-47","7":"2.482818e-46","8":"TRUE"},{"1":"F_OBESE_W_D.mp4","2":"obese","3":"average","4":"91.869565","5":"24.2068193","6":"7.095858e-46","7":"1.566057e-45","8":"TRUE"},{"1":"F_OBESE_W_D.mp4","2":"obese","3":"overweight","4":"2.826087","5":"0.7446490","6":"4.580719e-01","7":"4.580719e-01","8":"FALSE"},{"1":"F_OBESE_W_D.mp4","2":"obese","3":"thin","4":"96.217391","5":"25.3524331","6":"9.437066e-48","7":"4.718533e-47","8":"TRUE"},{"1":"F_OBESE_W_D.mp4","2":"obese","3":"skinny","4":"92.173913","5":"24.2870123","6":"5.220189e-46","7":"1.566057e-45","8":"TRUE"},{"1":"F_OW_W_D.mp4","2":"overweight","3":"athletic","4":"81.173913","5":"17.4342484","6":"1.950861e-33","7":"5.852584e-33","8":"TRUE"},{"1":"F_OW_W_D.mp4","2":"overweight","3":"average","4":"70.478261","5":"15.1370738","6":"1.174740e-28","7":"2.349480e-28","8":"TRUE"},{"1":"F_OW_W_D.mp4","2":"overweight","3":"obese","4":"21.521739","5":"4.6223637","6":"1.038789e-05","7":"1.038789e-05","8":"TRUE"},{"1":"F_OW_W_D.mp4","2":"overweight","3":"thin","4":"86.913043","5":"18.6668787","6":"6.982842e-36","7":"2.793137e-35","8":"TRUE"},{"1":"F_OW_W_D.mp4","2":"overweight","3":"skinny","4":"89.043478","5":"19.1244460","6":"9.062316e-37","7":"4.531158e-36","8":"TRUE"},{"1":"F_SKINNY_W_D.mp4","2":"skinny","3":"athletic","4":"22.695652","5":"3.0760388","6":"2.646985e-03","7":"5.293971e-03","8":"TRUE"},{"1":"F_SKINNY_W_D.mp4","2":"skinny","3":"average","4":"44.956522","5":"6.0931496","6":"1.667393e-08","7":"5.002180e-08","8":"TRUE"},{"1":"F_SKINNY_W_D.mp4","2":"skinny","3":"overweight","4":"67.260870","5":"9.1161533","6":"4.134243e-15","7":"2.067122e-14","8":"TRUE"},{"1":"F_SKINNY_W_D.mp4","2":"skinny","3":"obese","4":"67.217391","5":"9.1102605","6":"4.264214e-15","7":"2.067122e-14","8":"TRUE"},{"1":"F_SKINNY_W_D.mp4","2":"skinny","3":"thin","4":"-22.521739","5":"-3.0524676","6":"2.846076e-03","7":"5.293971e-03","8":"TRUE"},{"1":"F_THIN_W_D.mp4","2":"thin","3":"athletic","4":"43.608696","5":"6.2851950","6":"6.757739e-09","7":"2.027322e-08","8":"TRUE"},{"1":"F_THIN_W_D.mp4","2":"thin","3":"average","4":"43.521739","5":"6.2726622","6":"7.170666e-09","7":"2.027322e-08","8":"TRUE"},{"1":"F_THIN_W_D.mp4","2":"thin","3":"overweight","4":"88.826087","5":"12.8022467","6":"1.579252e-23","7":"7.896260e-23","8":"TRUE"},{"1":"F_THIN_W_D.mp4","2":"thin","3":"obese","4":"88.826087","5":"12.8022467","6":"1.579252e-23","7":"7.896260e-23","8":"TRUE"},{"1":"F_THIN_W_D.mp4","2":"thin","3":"skinny","4":"40.782609","5":"5.8778793","6":"4.520125e-08","7":"4.520125e-08","8":"TRUE"},{"1":"M_ATH_W_D.mp4","2":"athletic","3":"average","4":"45.956522","5":"8.1563327","6":"6.139362e-13","7":"6.139362e-13","8":"TRUE"},{"1":"M_ATH_W_D.mp4","2":"athletic","3":"overweight","4":"82.043478","5":"14.5610217","6":"2.050273e-27","7":"6.150818e-27","8":"TRUE"},{"1":"M_ATH_W_D.mp4","2":"athletic","3":"obese","4":"91.565217","5":"16.2509336","6":"5.211926e-31","7":"2.084770e-30","8":"TRUE"},{"1":"M_ATH_W_D.mp4","2":"athletic","3":"thin","4":"65.130435","5":"11.5593060","6":"1.035543e-20","7":"2.071086e-20","8":"TRUE"},{"1":"M_ATH_W_D.mp4","2":"athletic","3":"skinny","4":"92.217391","5":"16.3666809","6":"2.994083e-31","7":"1.497042e-30","8":"TRUE"},{"1":"M_AVG_W_D.mp4","2":"average","3":"athletic","4":"42.478261","5":"5.7535230","6":"7.979941e-08","7":"1.595988e-07","8":"TRUE"},{"1":"M_AVG_W_D.mp4","2":"average","3":"overweight","4":"40.434783","5":"5.4767415","6":"2.767092e-07","7":"2.767092e-07","8":"TRUE"},{"1":"M_AVG_W_D.mp4","2":"average","3":"obese","4":"55.434783","5":"7.5084359","6":"1.676907e-11","7":"6.707628e-11","8":"TRUE"},{"1":"M_AVG_W_D.mp4","2":"average","3":"thin","4":"47.956522","5":"6.4955332","6":"2.479157e-09","7":"7.437470e-09","8":"TRUE"},{"1":"M_AVG_W_D.mp4","2":"average","3":"skinny","4":"71.260870","5":"9.6520207","6":"2.457044e-16","7":"1.228522e-15","8":"TRUE"},{"1":"M_OBESE_W_D.mp4","2":"obese","3":"athletic","4":"92.130435","5":"26.9560140","6":"2.803078e-50","7":"5.606156e-50","8":"TRUE"},{"1":"M_OBESE_W_D.mp4","2":"obese","3":"average","4":"93.086957","5":"27.2358782","6":"1.042153e-50","7":"3.811452e-50","8":"TRUE"},{"1":"M_OBESE_W_D.mp4","2":"obese","3":"overweight","4":"1.608696","5":"0.4706808","6":"6.388007e-01","7":"6.388007e-01","8":"FALSE"},{"1":"M_OBESE_W_D.mp4","2":"obese","3":"thin","4":"97.826087","5":"28.6224783","6":"8.639691e-53","7":"4.319845e-52","8":"TRUE"},{"1":"M_OBESE_W_D.mp4","2":"obese","3":"skinny","4":"93.173913","5":"27.2613204","6":"9.528630e-51","7":"3.811452e-50","8":"TRUE"},{"1":"M_OW_W_D.mp4","2":"overweight","3":"athletic","4":"64.739130","5":"11.3841320","6":"2.602812e-20","7":"5.205624e-20","8":"TRUE"},{"1":"M_OW_W_D.mp4","2":"overweight","3":"average","4":"68.086957","5":"11.9728346","6":"1.183193e-21","7":"3.549580e-21","8":"TRUE"},{"1":"M_OW_W_D.mp4","2":"overweight","3":"obese","4":"15.130435","5":"2.6606299","6":"8.966212e-03","7":"8.966212e-03","8":"TRUE"},{"1":"M_OW_W_D.mp4","2":"overweight","3":"thin","4":"84.043478","5":"14.7787288","6":"6.926816e-28","7":"2.770726e-27","8":"TRUE"},{"1":"M_OW_W_D.mp4","2":"overweight","3":"skinny","4":"85.739130","5":"15.0769028","6":"1.580820e-28","7":"7.904101e-28","8":"TRUE"},{"1":"M_SKINNY_W_D.mp4","2":"skinny","3":"athletic","4":"87.652174","5":"16.9993882","6":"1.489938e-32","7":"4.469815e-32","8":"TRUE"},{"1":"M_SKINNY_W_D.mp4","2":"skinny","3":"average","4":"83.826087","5":"16.2573514","6":"5.053954e-31","7":"1.010791e-30","8":"TRUE"},{"1":"M_SKINNY_W_D.mp4","2":"skinny","3":"overweight","4":"92.739130","5":"17.9859598","6":"1.531061e-34","7":"6.124243e-34","8":"TRUE"},{"1":"M_SKINNY_W_D.mp4","2":"skinny","3":"obese","4":"93.260870","5":"18.0871467","6":"9.640646e-35","7":"4.820323e-34","8":"TRUE"},{"1":"M_SKINNY_W_D.mp4","2":"skinny","3":"thin","4":"8.956522","5":"1.7370407","6":"8.517919e-02","7":"8.517919e-02","8":"FALSE"},{"1":"M_THIN_W_D.mp4","2":"thin","3":"athletic","4":"30.739130","5":"4.1816528","6":"5.835254e-05","7":"1.167051e-04","8":"TRUE"},{"1":"M_THIN_W_D.mp4","2":"thin","3":"average","4":"4.869565","5":"0.6624400","6":"5.090748e-01","7":"5.090748e-01","8":"FALSE"},{"1":"M_THIN_W_D.mp4","2":"thin","3":"overweight","4":"72.086957","5":"9.8064785","6":"1.086590e-16","7":"5.432949e-16","8":"TRUE"},{"1":"M_THIN_W_D.mp4","2":"thin","3":"obese","4":"71.260870","5":"9.6941003","6":"1.967470e-16","7":"7.869880e-16","8":"TRUE"},{"1":"M_THIN_W_D.mp4","2":"thin","3":"skinny","4":"49.608696","5":"6.7486079","6":"7.290647e-10","7":"2.187194e-09","8":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="validation-summary" class="section level3" number="4.3">
+<h3><span class="header-section-number">4.3</span> Validation
+summary</h3>
 <pre class="r"><code>avatar_validation &lt;- posthoc_by_avatar %&gt;%
   group_by(avatar) %&gt;%
   summarise(all_contrasts_significant = all(significant), .groups = &quot;drop&quot;)
@@ -3047,10 +3071,9 @@ avatar_validation</code></pre>
   </script>
 </div>
 </div>
-<div id="plots-and-export" class="section level3" number="2.4">
-<h3><span class="header-section-number">2.4</span> 6. Plots and
-export</h3>
-<p><a name="Plots and export"></a></p>
+</div>
+<div id="plots-and-export" class="section level2" number="5">
+<h2><span class="header-section-number">5</span> Plots and export</h2>
 <pre class="r"><code>library(dplyr)
 library(ggplot2)
 library(purrr)
@@ -3131,7 +3154,6 @@ walk(avatar_list, function(av){
     dpi = 300, bg = &quot;white&quot;
   )
 })</code></pre>
-</div>
 </div>
 
 
