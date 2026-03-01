@@ -117,9 +117,9 @@ Alternatively, you may knit `02_statistics.Rmd` directly **only if** the cleaned
 
 ## Final Stimulus Set (F and M)
 
-![](RES/stimulus set/stimulus_set_F_VF.png)
+![](RES/stimulus%20set/stimulus_set_F_VF.png)
 
-![](RES/stimulus set/stimulus_set_M_VF.png)
+![](RES/stimulus%20set/stimulus_set_M_VF.png)
 
 ## Reference
 
