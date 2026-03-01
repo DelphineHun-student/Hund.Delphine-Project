@@ -23,13 +23,19 @@ The mapping between ratings and avatars is reconstructed using:
 
 <strong> Hypotheses </strong>
 
-For each avatar, ratings will be higher on the adjective matching its intended morphology than on the non-matching adjectives (congruent > incongruent). 
+For each avatar, ratings will be higher on the adjective matching its intended morphology than on the non-matching adjectives (congruent > incongruent).
+
+<strong> Version 2 (03/02/2026) </strong>
+
+The present analyses are based on Version 2 of the pre-manipulation questionnaire and stimulus set, including the following modifications:
+
+- The adjective *“skinny”* (previously translated as “maigre”) was replaced with a more precise wording referring to *“underweight”*.
+- Updated male avatars using a corrected animation, without shoulder/trapezius deformation (*Catwalk Walk Forward 02*, on Mixamo.com).
 
 ## Initiate
 ### Packages 
 ```{r}
-easypackages::libraries("tidyverse", "DescTools", "readxl", "purrr","emmeans",
-                        "dplyr", "tidyr", "stringr", "openxlsx", "ggplot2")
+easypackages::libraries("tidyverse","emmeans","openxlsx")
 ```
 
 ### Set directory 
@@ -349,4 +355,3 @@ walk(avatar_list, function(av){
 })
 
 ```
-
