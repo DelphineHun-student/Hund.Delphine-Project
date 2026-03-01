@@ -19,7 +19,7 @@ This pre-study was conducted to validate a set of dynamic avatars representing d
 
 ## Objectives
 
-- Assess whether avatars representing distinct body morphologies (underweight, thin, average, athletic, overweight, obese) are perceived as intended.
+- Assess whether avatars representing distinct body morphologies are perceived as intended.
 - Evaluate potential perceptual overlap between body-size adjectives.
 - Select the most representative and perceptually distinct avatars for the main study.
 
@@ -31,7 +31,7 @@ This observational pilot study was conducted online using SoSci Survey.
 
 Participants rated 12 animated avatars (6 female, 6 male) per morphology category:
 
-- Underweight  
+- Skinny  
 - Thin  
 - Average  
 - Athletic  
@@ -56,7 +56,7 @@ The order of avatar presentation was randomized across participants. The order o
   - Age ≥ 18 years
   - Fluency in French
   - No self-reported history of clinically significant body image or eating disorder difficulties
-- Target sample size: 40 participants (20 men, 20 women)
+- Target sample size: 20 participants (10 men, 10 women)
 
 ---
 
@@ -77,7 +77,6 @@ For each avatar:
 
 1. A repeated-measures ANOVA tested the global effect of adjective.
 2. Planned contrasts compared the congruent adjective (intended morphology) to each incongruent adjective.
-3. Holm correction was applied for multiple comparisons.
 
 Avatars were considered validated if ratings on the intended adjective were significantly higher than ratings on all alternative adjectives.
 
@@ -108,7 +107,12 @@ To reproduce the analyses:
 
 1. Open `main.Rproj`
 2. Run `main.R`
-3. Outputs will be generated in the `results/` folder.
+
+This will:  
+- Execute `01_preprocessing.R`and `02_statistics.Rmd`  
+- Generate all outputs in the `results/` folder  
+
+Alternatively, you may knit `02_statistics.Rmd` directly **only if** the cleaned dataset has already been generated in `data/clean/`.
 
 ---
 
