@@ -259,13 +259,21 @@ posthoc_by_avatar
 ```
 
 ### Validation summary
-```{r}
+An avatar is considered validated if all planned contrasts (target adjective vs each non-target adjective) are statistically significant after Holm correction.
+```{r validation summary}
 avatar_validation <- posthoc_by_avatar %>%
-  group_by(avatar) %>%
-  summarise(all_contrasts_significant = all(significant), .groups = "drop")
+  group_by(avatar, morpho_target) %>%
+  summarise(
+    n_contrasts = n(),
+    n_significant = sum(significant),
+    all_contrasts_significant = all(significant),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(all_contrasts_significant), avatar)
 
 avatar_validation
 ```
+
 ## Plots and export
 ```{r}
 library(dplyr)
