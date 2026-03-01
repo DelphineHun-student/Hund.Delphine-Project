@@ -275,13 +275,10 @@ avatar_validation
 ```
 
 ## Plots and export
-```{r}
-library(dplyr)
-library(ggplot2)
-library(purrr)
-library(stringr)
-
-# 1) Moyennes + SEM par avatar × adjectif
+For each avatar, we plot mean ratings (± SEM) for the six adjectives. The intended adjective (congruent) is highlighted.  
+Plots are exported as one PNG file per avatar in `RES/plots_avatar/`.
+```{r plots and export}
+# Mean + SEM per avatar × adjective
 plot_data <- ratings_clean %>%
   group_by(avatar, adjectif, morpho_target) %>%
   summarise(
@@ -290,18 +287,16 @@ plot_data <- ratings_clean %>%
     .groups = "drop"
   )
 
-# 2) Labels de significativité basés sur les post-hoc (Holm corrigé)
+# Significance labels from post-hoc results
 sig_labels <- posthoc_by_avatar %>%
   mutate(label = ifelse(significant, "*", "ns")) %>%
   left_join(
     plot_data,
     by = c("avatar", "morpho_target", "compared_to" = "adjectif")
   ) %>%
-  mutate(
-    y_pos = mean_note + sem + 2  # ajuste si les labels se chevauchent
-  )
+  mutate(y_pos = mean_note + sem + 2)
 
-# 3) Fonction plot 1 avatar
+# Plot function (one avatar)
 plot_one_avatar <- function(av_id){
 
   pd_av <- plot_data %>% filter(avatar == av_id)
@@ -316,13 +311,13 @@ plot_one_avatar <- function(av_id){
       size = 4
     ) +
     scale_fill_manual(
-      values = c("grey70", "steelblue"),
+      values = c("grey", "steelblue"),
       labels = c("Incongruent", "Congruent"),
       name = ""
     ) +
     labs(
       title = paste("Avatar:", av_id),
-      subtitle = "RM-ANOVA + planned contrasts (congruent vs each incongruent, Holm-corrected)",
+      subtitle = "Planned contrasts: target adjective vs each non-target",
       x = "Adjective",
       y = "Mean rating"
     ) +
@@ -333,19 +328,15 @@ plot_one_avatar <- function(av_id){
     )
 }
 
-# 4) Afficher tous les avatars
+# Export one PNG file per avatar
 avatar_list <- sort(unique(plot_data$avatar))
 walk(avatar_list, ~ print(plot_one_avatar(.x)))
 
 PLOTS_DIR <- file.path(RES_PATH, "plots_avatar")
 if (!dir.exists(PLOTS_DIR)) dir.create(PLOTS_DIR, recursive = TRUE)
 
-avatar_list <- sort(unique(plot_data$avatar))
-
-# Export — un fichier PNG par avatar
 walk(avatar_list, function(av){
   p <- plot_one_avatar(av)
-
   safe_name <- str_replace_all(av, "[^A-Za-z0-9_-]", "_")
   out_png <- file.path(PLOTS_DIR, paste0("plot_", safe_name, ".png"))
 
