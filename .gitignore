@@ -1,6 +1,5 @@
 # Dossiers à ignorer
 DAT/
-RES/
 
 # Fichiers R temporaires
 .Rhistory
