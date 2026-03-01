@@ -199,16 +199,14 @@ All post-hoc comparisons are corrected for multiple testing using the Holm metho
 run_planned_contrasts <- function(data_av, adjectives = adjectifs) {
   target <- unique(data_av$morpho_target)
   stopifnot(length(target) == 1)
-   .
-  lm_mod <- lm(note ~ CASE + adjectif, data = data_av)  # CASE comme bloc (équiv RM)
+  
+  lm_mod <- lm(note ~ CASE + adjectif, data = data_av)
   emm <- emmeans(lm_mod, ~ adjectif)
 
-  # contrasts: target - other (donc congruent > incongruent attendu)
   others <- adjectifs[adjectifs != target]
 
   contr_list <- setNames(
     lapply(others, function(adj){
-      # vecteur de contraste : target - adj
       v <- rep(0, length(adjectifs)); names(v) <- adjectifs
       v[target] <- 1
       v[adj] <- -1
@@ -220,7 +218,6 @@ run_planned_contrasts <- function(data_av, adjectives = adjectifs) {
   ph <- contrast(emm, contr_list) %>%
     as.data.frame() %>%
     transmute(
-      morpho_target = target,
       compared_to = str_replace(contrast, paste0("^", target, " - "), ""),
       estimate = estimate,
       SE = SE,
@@ -231,29 +228,31 @@ run_planned_contrasts <- function(data_av, adjectives = adjectifs) {
     mutate(
       p_adj = p.adjust(p_value, method = "holm"),
       significant = p_adj < .05
-    )
+    ) 
   ph
-}
-
-  list(
-    anova = aov_table %>% mutate(morpho_target = target),
-    posthoc = ph
-  )
 }
 
 out <- ratings_clean %>%
   group_by(avatar) %>%
   group_modify(~{
-    res <- run_rm_anova_posthoc(.x)
+    data_av <- .x
+    target <- unique(data_av$morpho_target)
+
     tibble(
-      anova = list(res$anova),
-      posthoc = list(res$posthoc)
+      morpho_target = target,
+      anova = list(run_rm_anova(data_av)),
+      posthoc = list(run_planned_contrasts(data_av))
     )
   }) %>%
   ungroup()
 
-anova_by_avatar <- out %>% tidyr::unnest(anova) %>% select(avatar, morpho_target, df1, df2, F, p_value)
-posthoc_by_avatar <- out %>% tidyr::unnest(posthoc) %>% select(avatar, morpho_target, compared_to, estimate, t, p_value, p_adj, significant)
+anova_by_avatar <- out %>%
+  tidyr::unnest(anova) %>%
+  select(avatar, morpho_target, df1, df2, F, p_value)
+
+posthoc_by_avatar <- out %>%
+  tidyr::unnest(posthoc) %>%
+  select(avatar, morpho_target, compared_to, estimate, t, p_value, p_adj, significant)
 
 anova_by_avatar
 posthoc_by_avatar
