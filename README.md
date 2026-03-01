@@ -1,23 +1,17 @@
----
-title: "Body perception pre-manip: README"
-author: |
-  Delphine Hund   
-  Master 1 – IEAP Digimove      
-  University of Montpellier     
-date: "March 2026"
-output:
-  html_document:
-    toc: true
-    toc_depth: 3
-    toc_float:
-      collapsed: true
-      smooth_scroll: true
-    number_sections: true
-    df_print: paged
+<p align="center">
+
+# Body Perception – Pre-Manipulation Validation
+
+**Delphine Hund**  
+Master 1 – IEAP Digimove  
+University of Montpellier  
+March 2026  
+
+</p>
+
 ---
 
-
-## Study Overview
+## Project Overview
 
 This pre-study was conducted to validate a set of dynamic avatars representing different body morphology categories. The objective was to ensure that the adjectives describing body size accurately matched participants’ perceptual judgments before inclusion in the main experimental study.
 
