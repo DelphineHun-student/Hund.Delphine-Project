@@ -20,7 +20,6 @@ This pre-study was conducted to validate a set of dynamic avatars representing d
 ## Objectives
 
 - Assess whether avatars representing distinct body morphologies are perceived as intended.
-- Evaluate potential perceptual overlap between body-size adjectives.
 - Select the most representative and perceptually distinct avatars for the main study.
 
 ---
