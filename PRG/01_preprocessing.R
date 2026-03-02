@@ -19,7 +19,7 @@ PATH <- getwd()   # Root of the project (V2/code)
 DAT_PATH   <- file.path(PATH, "DAT")
 RAW_PATH   <- file.path(DAT_PATH, "raw")
 CLEAN_PATH <- file.path(DAT_PATH, "clean")
-RES_PATH   <- file.path(PROJECT_PATH, "RES")
+RES_PATH   <- file.path(PATH, "RES")
 
 # Import raw data
 file_name = "data_BodyPerception.xlsx"

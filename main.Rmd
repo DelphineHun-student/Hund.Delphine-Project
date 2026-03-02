@@ -1,9 +1,50 @@
 ---
-title: "main"
-output: html_document
-date: "2026-03-02"
+title: "Body Perception – Pre-manip: Main pipeline"
+author: "Delphine Hund (Master 1 – IEAP Digimove, University of Montpellier)"
+date: "March 2026"
 ---
-```{r required_packages}
-install.packages("renv")
+### What this document does
+
+This `main.Rmd` is the **entry point** of the project. It runs the full pipeline:
+
+1. **Preprocessing** (`PRG/01_preprocessing.R`)  
+   → reads raw questionnaire data and exports a cleaned dataset into `DAT/clean/`
+
+2. **Statistical report** (`PRG/02_statistics.Rmd`)  
+   → renders an HTML report into `RES/`
+
+### How to run
+
+- In RStudio: open the project and click **Knit**
+
+```{r}
+knitr::opts_chunk$set(
+  echo = TRUE,        # montre le code si tu veux (tu peux mettre FALSE)
+  message = FALSE,
+  warning = FALSE,
+  results = "hide"
+)
 ```
+
+### Restore the renv environment
+```{r restore renv environment}
+if (requireNamespace("renv", quietly = TRUE)) {
+  renv::restore(prompt = FALSE)
+}
+```
+
+```{r 01_preprocessing}
+source("PRG/01_preprocessing.R")
+```
+
+```{r 02_statistics}
+rmarkdown::render(
+  input = "PRG/02_statistics.Rmd",
+  output_format = "html_document",
+  output_dir = "RES"
+)
+
+cat("✔ Full pipeline successfully executed.\n")
+```
+
 
