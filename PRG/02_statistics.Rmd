@@ -35,16 +35,18 @@ The present analyses are based on Version 2 of the pre-manipulation questionnair
 ## Initiate
 ### Packages 
 ```{r}
-easypackages::libraries("tidyverse","emmeans","openxlsx")
+library(tidyverse)
+library(emmeans)
+library(openxlsx)
 ```
 
 ### Set directory 
 ```{r}
-PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
-PATH = dirname(PRG_PATH)
+PATH <- dirname(getwd()) 
 DAT_PATH = file.path(PATH, "DAT")
 CLEAN_PATH = file.path(DAT_PATH, "clean")
 RES_PATH = file.path(PATH, "RES")
+
 ```
 
 ### Read data 
