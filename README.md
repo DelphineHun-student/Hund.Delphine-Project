@@ -1,19 +1,22 @@
----
-output:
-  html_document:
-    includes:
-      before_body: ../assets/header.html
+# Social Perception of Body Morphology in Sports Students  
+## Pre-manipulation Study
+
+Master of Science (MSc) — Engineering and Ergonomics of Physical Activity  
+Faculty of Sports and Health Sciences (UFR STAPS)  
+University of Montpellier  
+
+**Author:** Delphine Hund (Master 1 IEAP Digimove)  
+**Supervisors:** Ludovic Marin, Mathilde Parisi, Stéphane Raffard  
+**Course:** Python, R and Git for Data Analysis  
+**Academic Year:** 2025–2026  
+**Date of Defense:** Tuesday 17 March 2026  
+
+**GitHub Repository:**  
+https://github.com/DelphineHun-student/Hund.Delphine-Project  
+
 ---
 
-<div style="
-  margin-top:18px;
-  font-size:16px;
-  font-weight:600;
-  color:#5a2d82;
-  letter-spacing:0.5px;
-">
-ReadMe
-</div>
+## Read Me
 
 </div>
 
