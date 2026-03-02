@@ -13,15 +13,6 @@ University of Montpellier
 
 **GitHub Repository:**  
 https://github.com/DelphineHun-student/Hund.Delphine-Project  
-
----
-
-## Read Me
-
-</div>
-
-<strong> Experiment summary </strong>
-
 ---
 
 ## Project Overview
