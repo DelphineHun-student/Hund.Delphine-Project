@@ -21,14 +21,17 @@ This `main.Rmd` is the **entry point** of the project. It runs the full pipeline
 
 2. **Statistical report** (`PRG/02_statistics.Rmd`)  
    → renders an HTML report into `RES/`
+   
+3. **Plots** (`PRG/02_statistics.Rmd`)  
+   → renders .png exports into `RES/plots_avatar/`
 
 ### How to run
 
-- In RStudio: open the project and click **Knit**
+- In RStudio: open the file and click on **Knit**
 
-```{r}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  echo = TRUE,        # montre le code si tu veux (tu peux mettre FALSE)
+  echo = TRUE,
   message = FALSE,
   warning = FALSE,
   results = "hide"
@@ -42,18 +45,20 @@ if (requireNamespace("renv", quietly = TRUE)) {
 }
 ```
 
-```{r 01_preprocessing}
+### Run full pipeline
+```{r run pipeline}
 source("PRG/01_preprocessing.R")
-```
 
-```{r 02_statistics}
 rmarkdown::render(
   input = "PRG/02_statistics.Rmd",
   output_format = "html_document",
-  output_dir = "RES"
-)
-
-cat("✔ Full pipeline successfully executed.\n")
+  output_dir = "RES")
 ```
 
-
+```{r done, results='asis', echo=FALSE}
+cat("### Outputs\n")
+cat("- **Clean data:** `DAT/clean/`\n\n")
+cat("- **Statistical report:** `RES/02_statistics.html`\n")
+cat("- **Plots:** `RES/plots_avatar/`\n\n")
+cat("✔ Full pipeline successfully executed.\n")
+```
