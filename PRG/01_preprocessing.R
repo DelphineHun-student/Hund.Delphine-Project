@@ -1,5 +1,4 @@
 #################### Body Perception - Pre-manip ###################
-
 # OBJECTIVE:
 # Reconstruct the mapping between:
 # - Avatar presented at each slot (VI03_01 ... VI03_12)
@@ -15,11 +14,12 @@ library(tidyr)
 library(ggplot2)
 
 ### Set directory
-PRG_PATH = dirname(rstudioapi::getSourceEditorContext()$path) 
-PATH = dirname(PRG_PATH)
-DAT_PATH = file.path(PATH, "DAT")
-RAW_PATH = file.path(DAT_PATH, "raw")
-CLEAN_PATH = file.path(DAT_PATH, "clean")
+PATH <- getwd()   # Root of the project (V2/code)
+
+DAT_PATH   <- file.path(PATH, "DAT")
+RAW_PATH   <- file.path(DAT_PATH, "raw")
+CLEAN_PATH <- file.path(DAT_PATH, "clean")
+RES_PATH   <- file.path(PROJECT_PATH, "RES")
 
 # Import raw data
 file_name = "data_BodyPerception.xlsx"
