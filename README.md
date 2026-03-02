@@ -1,13 +1,23 @@
-<p align="center">
+---
+output:
+  html_document:
+    includes:
+      before_body: ../assets/header.html
+---
 
-# Body Perception – Pre-Manipulation Validation
+<div style="
+  margin-top:18px;
+  font-size:16px;
+  font-weight:600;
+  color:#5a2d82;
+  letter-spacing:0.5px;
+">
+ReadMe
+</div>
 
-**Delphine Hund**  
-Master 1 – IEAP Digimove  
-University of Montpellier  
-March 2026  
+</div>
 
-</p>
+<strong> Experiment summary </strong>
 
 ---
 

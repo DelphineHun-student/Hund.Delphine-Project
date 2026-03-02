@@ -1,17 +1,21 @@
 ---
-title: "Body perception pre-manip V2 : statistical analyses"
-author: "Delphine Hund"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
   html_document:
-    toc: true
-    toc_depth: 3
-    toc_float:
-      collapsed: true
-      smooth_scroll: true
-    number_sections: true
-    df_print: paged
+    includes:
+      before_body: ../assets/header.html
 ---
+
+<div style="
+  margin-top:18px;
+  font-size:16px;
+  font-weight:600;
+  color:#5a2d82;
+  letter-spacing:0.5px;
+">
+02_processing.Rmd — Statistical Report
+</div>
+
+</div>
 
 <strong> Experiment summary </strong>
 
@@ -46,7 +50,6 @@ PATH <- dirname(getwd())
 DAT_PATH = file.path(PATH, "DAT")
 CLEAN_PATH = file.path(DAT_PATH, "clean")
 RES_PATH = file.path(PATH, "RES")
-
 ```
 
 ### Read data 
