@@ -11,8 +11,6 @@ University of Montpellier
 **Academic Year:** 2025–2026  
 **Date of Defense:** Tuesday 17 March 2026  
 
-**GitHub Repository:**  
-https://github.com/DelphineHun-student/Hund.Delphine-Project  
 ---
 
 ## Project Overview
