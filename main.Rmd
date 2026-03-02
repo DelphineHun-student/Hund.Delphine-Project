@@ -2,6 +2,15 @@
 title: "Body Perception – Pre-manip: Main pipeline"
 author: "Delphine Hund (Master 1 – IEAP Digimove, University of Montpellier)"
 date: "March 2026"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    number_sections: true
+    df_print: paged
 ---
 ### What this document does
 
