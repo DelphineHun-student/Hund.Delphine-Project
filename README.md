@@ -56,8 +56,6 @@ This will:
 - Execute `01_preprocessing.R`and `02_statistics.Rmd`  
 - Generate all outputs in the `results/` folder  
 
-Alternatively, you may knit `02_statistics.Rmd` directly **only if** the cleaned dataset has already been generated in `data/clean/`.
-
 ### Outputs
 <pre>
 RES/
