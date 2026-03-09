@@ -15,71 +15,8 @@ University of Montpellier
 
 ## Project Overview
 
-This pre-study was conducted to validate a set of dynamic avatars representing different body morphology categories. The objective was to ensure that the adjectives describing body size accurately matched participants’ perceptual judgments before inclusion in the main experimental study.
-
----
-
-## Objectives
-
-- Assess whether avatars representing distinct body morphologies are perceived as intended.
-- Select the most representative and perceptually distinct avatars for the main study.
-
----
-
-## Study Design
-
-This observational pilot study was conducted online using SoSci Survey.
-
-Participants rated 12 animated avatars (6 female, 6 male) per morphology category:
-
-- Skinny  
-- Thin  
-- Average  
-- Athletic  
-- Overweight  
-- Obese  
-
-All avatars performed a standardized walking-in-place animation displayed in a continuous loop.
-
-For each avatar, participants evaluated six morphology adjectives using a slider scale ranging from 1 (“Not at all”) to 101 (“Completely”).
-
-Example item:  
-> “In your opinion, to what extent does this avatar appear athletic?”
-
-The order of avatar presentation was randomized across participants. The order of adjective ratings was also randomized within each avatar.
-
----
-
-## Sample
-
-- Online recruitment (university mailing lists and personal networks)
-- Inclusion criteria:
-  - Age ≥ 18 years
-  - Fluency in French
-  - No self-reported history of clinically significant body image or eating disorder difficulties
-- Target sample size: 20 participants (10 men, 10 women)
-
----
-
-## Variables
-
-### Independent Variables
-- Intended body morphology category (a priori defined)
-- Avatar sex (male / female)
-
-### Dependent Variables
-- Adjective-based body morphology ratings (continuous scale: 1–101)
-
----
-
-## Statistical Analysis
-
-For each avatar:
-
-1. A repeated-measures ANOVA tested the global effect of adjective.
-2. Planned contrasts compared the congruent adjective (intended morphology) to each incongruent adjective.
-
-Avatars were considered validated if ratings on the intended adjective were significantly higher than ratings on all alternative adjectives.
+This project aims to validate a set of animated avatars representing different body morphology categories.  
+The study evaluates whether participants’ perceptual judgments match the intended morphology labels before inclusion in a larger experimental protocol.
 
 ---
 
@@ -98,11 +35,17 @@ Avatars were considered validated if ratings on the intended adjective were sign
 ├── main.Rmd
 ├── main.Rproj
 |–– Hund.Delphine.html
+├── assets/
+│   └── header.html
+├── renv.lock
+|── renv/
 |–– LICENCE
 └── README.md
 </pre>
 
 ## Reproducibility
+
+This project uses **renv** to ensure reproducible package versions.
 
 To reproduce the analyses:
 
@@ -114,6 +57,17 @@ This will:
 - Generate all outputs in the `results/` folder  
 
 Alternatively, you may knit `02_statistics.Rmd` directly **only if** the cleaned dataset has already been generated in `data/clean/`.
+
+### Outputs
+<pre>
+RES/
+├── 02_statistics.html
+└── plots_avatar/
+</pre>
+
+### Scientific report
+The scientific report describing the study design, analyses and results is available in:
+`Hund.Delphine.html`
 
 ---
 
