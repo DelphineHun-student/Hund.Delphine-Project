@@ -26,12 +26,12 @@ The study evaluates whether participants’ perceptual judgments match the inten
 ├── DAT/
 │   ├── raw/
 │   └── clean/
-├── RES/
-│   ├── plots_avatar/
-│   └── stimulus set/
 ├── PRG/
 │   ├── 01_preprocessing.R
 │   └── 02_statistics.Rmd
+├── RES/
+│   ├── plots_avatar/
+│   └── stimulus set/
 ├── main.Rmd
 ├── main.Rproj
 |–– Hund.Delphine.html
