@@ -39,7 +39,16 @@ The present analyses are based on Version 2 of the pre-manipulation questionnair
 ## Initiate
 ### Packages 
 ```{r}
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(stringr)
+library(tibble)
+library(readxl)
+library(openxlsx)
+library(emmeans)
+library(rmarkdown)
+library(knitr)
 library(emmeans)
 library(openxlsx)
 ```
