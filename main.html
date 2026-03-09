@@ -448,6 +448,7 @@ project. It runs the full pipeline:</p>
 <div id="restore-the-renv-environment" class="section level3">
 <h3>Restore the renv environment</h3>
 <pre class="r"><code>if (requireNamespace(&quot;renv&quot;, quietly = TRUE)) {
+  options(pkgType = &quot;binary&quot;)
   renv::restore(prompt = FALSE)
 }</code></pre>
 </div>
