@@ -52,6 +52,7 @@ library(rmarkdown)
 library(knitr)
 library(emmeans)
 library(openxlsx)
+library(gt)
 ```
 
 ### Set directory 
@@ -60,6 +61,7 @@ PATH <- dirname(getwd())
 DAT_PATH = file.path(PATH, "DAT")
 CLEAN_PATH = file.path(DAT_PATH, "clean")
 RES_PATH = file.path(PATH, "RES")
+TABLES_DIR <- file.path(RES_PATH, "tables")
 ```
 
 ### Read data 
@@ -150,6 +152,51 @@ desc_avatar_adj <- ratings_clean %>%
   arrange(avatar, adjectif)
 
 desc_avatar_adj
+```
+
+### Export
+```{r}
+wb_desc <- createWorkbook()
+
+addWorksheet(wb_desc, "exclusion_summary")
+writeData(wb_desc, "exclusion_summary", exclusion_summary)
+
+addWorksheet(wb_desc, "demographics_summary")
+writeData(wb_desc, "demographics_summary", demographics_summary)
+
+addWorksheet(wb_desc, "ratings_avatar_adj")
+writeData(wb_desc, "ratings_avatar_adj", desc_avatar_adj)
+
+saveWorkbook(
+  wb_desc,
+  file = file.path(TABLES_DIR, "descriptive_statistics.xlsx"),
+  overwrite = TRUE
+)
+
+save_table_png <- function(df, filename){
+  gt_table <- gt(df)
+  gtsave(
+    gt_table,
+    filename = filename
+  )
+}
+
+save_table_png(
+  exclusion_summary,
+  file.path(TABLES_DIR, "exclusion_summary.png")
+)
+
+save_table_png(
+  demographics_summary,
+  file.path(TABLES_DIR, "demographics_summary.png")
+)
+
+save_table_png(
+  desc_avatar_adj,
+  file.path(TABLES_DIR, "ratings_avatar_adjective.png")
+)
+
+
 ```
 
 ## Manip-check
