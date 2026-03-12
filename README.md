@@ -1,5 +1,5 @@
 # Social Perception of Body Morphology in Sports Students  
-## Pre-manipulation Study
+## Pilot Study
 
 Master of Science (MSc) — Engineering and Ergonomics of Physical Activity  
 Faculty of Sports and Health Sciences (UFR STAPS)  
@@ -16,7 +16,7 @@ University of Montpellier
 ## Project Overview
 
 This project aims to validate a set of animated avatars representing different body morphology categories.  
-The study evaluates whether participants’ perceptual judgments match the intended morphology labels before inclusion in a larger experimental protocol.
+The pilot study evaluates whether participants’ perceptual judgments match the intended morphology labels before inclusion in a larger experimental protocol.
 
 ---
 
