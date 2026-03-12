@@ -58,6 +58,11 @@ This will:
 
 ### Outputs
 <pre>
+DAT/
+└── clean/
+     ├── pre_manip_ratings.xlsx
+     ├── pre_manip_ratings.csv
+     └── pre_manip_ratings.rdata
 RES/
 ├── 02_statistics.html
 └── plots_avatar/
