@@ -31,6 +31,7 @@ The pilot study evaluates whether participants’ perceptual judgments match the
 │   └── 02_statistics.Rmd
 ├── RES/
 │   ├── plots_avatar/
+│   ├── tables/
 │   └── stimulus set/
 ├── main.Rmd
 ├── main.Rproj
