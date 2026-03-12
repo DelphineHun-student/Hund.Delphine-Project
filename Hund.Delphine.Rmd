@@ -11,7 +11,7 @@ output:
   color:#5a2d82;
   letter-spacing:0.5px;
 ">
-02_processing.Rmd — Statistical Report
+Scientific Report
 </div>
 
 
@@ -176,6 +176,10 @@ The final validation summary indicated, for each avatar:
 - whether all contrasts were significant after correction
 
 This allowed a direct selection of the avatars that best matched their intended morphology labels.
+
+```{r tables validation, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 2. Validation summary for each avatar"}
+knitr::include_graphics("RES/tables/avatar_validation.png")
+```
 
 ## Figures
 
