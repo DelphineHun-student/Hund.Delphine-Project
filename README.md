@@ -39,7 +39,7 @@ The study evaluates whether participants’ perceptual judgments match the inten
 │   └── header.html
 ├── renv.lock
 |── renv/
-|–– LICENCE
+|–– LICENSE
 └── README.md
 </pre>
 
@@ -50,11 +50,11 @@ This project uses **renv** to ensure reproducible package versions.
 To reproduce the analyses:
 
 1. Open `main.Rproj`
-2. Run `main.R`
+2. Run `main.Rmd`
 
 This will:  
-- Execute `01_preprocessing.R`and `02_statistics.Rmd`  
-- Generate all outputs in the `results/` folder  
+- Execute `01_preprocessing.R` and `02_statistics.Rmd`  
+- Generate all outputs in the `RES/` folder  
 
 ### Outputs
 <pre>
