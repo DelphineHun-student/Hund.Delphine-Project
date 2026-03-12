@@ -64,9 +64,9 @@ DAT/
      ├── pre_manip_ratings.csv
      └── pre_manip_ratings.rdata
 RES/
-├── 02_statistics.html
-├── plots_avatar/ # Contains all avatars plots
-└── tables/       # Descriptive statistics tables
+├── plots_avatar/   # Statisctical plots (one per avatar)
+├── tables/         # Descriptive statistics tables
+└── 02_statistics.html
 </pre>
 
 ### Scientific report
