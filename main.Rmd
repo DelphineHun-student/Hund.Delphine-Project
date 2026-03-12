@@ -63,8 +63,9 @@ rmarkdown::render(
 
 ```{r done, results='asis', echo=FALSE}
 cat("### Outputs\n")
-cat("- **Clean data:** `DAT/clean/`\n\n")
+cat("- **Clean data:** `DAT/clean/`\n")
 cat("- **Statistical report:** `RES/02_statistics.html`\n")
-cat("- **Plots:** `RES/plots_avatar/`\n\n")
+cat("- **Plots (descriptive):** `RES/plots_avatar/`\n")
+cat("- **Plots (ANOVA):** `RES/plots_avatar/`\n\n")
 cat("✔ Full pipeline successfully executed.\n")
 ```

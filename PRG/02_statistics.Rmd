@@ -19,7 +19,7 @@ output:
 
 <strong> Experiment summary </strong>
 
-This pre-manipulation aims to validate the perceived morphology of dynamic avatars. Participants viewed 12 animated avatars (randomized order) and rated each avatar on 6 adjective-based dimensions: athletic, average, overweight, obese, thin, skinny.
+This pilot study aims to validate the perceived morphology of dynamic avatars. Participants viewed 12 animated avatars (randomized order) and rated each avatar on 6 adjective-based dimensions: athletic, average, overweight, obese, thin, skinny.
 
 The mapping between ratings and avatars is reconstructed using:
 - VI03_01 ... VI03_12: the avatar identifier presented at each position (slot)
@@ -31,9 +31,9 @@ For each avatar, ratings will be higher on the adjective matching its intended m
 
 <strong> Version 2 (03/02/2026) </strong>
 
-The present analyses are based on Version 2 of the pre-manipulation questionnaire and stimulus set, including the following modifications:
+The present analyses are based on Version 2 of the pilot study questionnaire and stimulus set, including the following modifications:
 
-- The adjective *“skinny”* (previously translated as “maigre”) was replaced with a more precise wording referring to *“underweight”*.
+- The adjective *“skinny”* (previously translated as “maigre”) was replaced with a more precise wording referring to *“underweight”* ("sous-poids").
 - Updated male avatars using a corrected animation, without shoulder/trapezius deformation (*Catwalk Walk Forward 02*, on Mixamo.com).
 
 ## Initiate
@@ -45,8 +45,6 @@ library(ggplot2)
 library(stringr)
 library(tibble)
 library(readxl)
-library(openxlsx)
-library(emmeans)
 library(purrr)
 library(rmarkdown)
 library(knitr)

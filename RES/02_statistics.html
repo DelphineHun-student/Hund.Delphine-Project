@@ -380,7 +380,7 @@ text-decoration: underline;
 
 <div class="report-title">
 Social Perception of Body Morphology in Sports Students <br>
-Pre-manipulation study
+Pilot study
 </div>
 
 <div class="report-subtitle">
@@ -391,7 +391,7 @@ University of Montpellier
 
 <div class="report-meta">
 <strong>Author:</strong> Delphine Hund (Master 1 IEAP Digimove) <br>
-<strong>Supervisors:</strong> Ludovic Marin, Mathilde Parisi, Stéphane Raffard <br>
+<strong>Supervisors:</strong> Ludovic Marin, Mathilde Parisi, Stéphane Raffard, Rachel F. Rodgers <br>
 <strong>Course:</strong> Python, R and Git for Data Analysis <br>    
 <strong>Academic Year:</strong> 2025–2026 <br>
 <strong>Date of Defense:</strong> Tuesday 17 March 2026 <br>
@@ -458,20 +458,20 @@ library(ggplot2)
 library(stringr)
 library(tibble)
 library(readxl)
-library(openxlsx)
-library(emmeans)
 library(purrr)
 library(rmarkdown)
 library(knitr)
 library(emmeans)
-library(openxlsx)</code></pre>
+library(openxlsx)
+library(gt)</code></pre>
 </div>
 <div id="set-directory" class="section level3">
 <h3>Set directory</h3>
 <pre class="r"><code>PATH &lt;- dirname(getwd()) 
 DAT_PATH = file.path(PATH, &quot;DAT&quot;)
 CLEAN_PATH = file.path(DAT_PATH, &quot;clean&quot;)
-RES_PATH = file.path(PATH, &quot;RES&quot;)</code></pre>
+RES_PATH = file.path(PATH, &quot;RES&quot;)
+TABLES_DIR &lt;- file.path(RES_PATH, &quot;tables&quot;)</code></pre>
 </div>
 <div id="read-data" class="section level3">
 <h3>Read data</h3>
@@ -566,6 +566,48 @@ across the six adjective dimensions.</p>
   arrange(avatar, adjectif)
 
 desc_avatar_adj</code></pre>
+</div>
+<div id="export" class="section level3">
+<h3>Export</h3>
+<pre class="r"><code>wb_desc &lt;- createWorkbook()
+
+addWorksheet(wb_desc, &quot;exclusion_summary&quot;)
+writeData(wb_desc, &quot;exclusion_summary&quot;, exclusion_summary)
+
+addWorksheet(wb_desc, &quot;demographics_summary&quot;)
+writeData(wb_desc, &quot;demographics_summary&quot;, demographics_summary)
+
+addWorksheet(wb_desc, &quot;ratings_avatar_adj&quot;)
+writeData(wb_desc, &quot;ratings_avatar_adj&quot;, desc_avatar_adj)
+
+saveWorkbook(
+  wb_desc,
+  file = file.path(TABLES_DIR, &quot;descriptive_statistics.xlsx&quot;),
+  overwrite = TRUE
+)
+
+save_table_png &lt;- function(df, filename){
+  gt_table &lt;- gt(df)
+  gtsave(
+    gt_table,
+    filename = filename
+  )
+}
+
+save_table_png(
+  exclusion_summary,
+  file.path(TABLES_DIR, &quot;exclusion_summary.png&quot;)
+)
+
+save_table_png(
+  demographics_summary,
+  file.path(TABLES_DIR, &quot;demographics_summary.png&quot;)
+)
+
+save_table_png(
+  desc_avatar_adj,
+  file.path(TABLES_DIR, &quot;ratings_avatar_adjective.png&quot;)
+)</code></pre>
 </div>
 </div>
 <div id="manip-check" class="section level2">
@@ -716,7 +758,13 @@ after Holm correction.</p>
   ) %&gt;%
   arrange(desc(all_contrasts_significant), avatar)
 
-avatar_validation</code></pre>
+avatar_validation
+
+# Export
+save_table_png(
+  avatar_validation,
+  file.path(TABLES_DIR, &quot;avatar_validation.png&quot;)
+)</code></pre>
 </div>
 </div>
 <div id="plots-and-export" class="section level2">

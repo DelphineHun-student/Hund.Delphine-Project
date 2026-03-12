@@ -33,7 +33,7 @@ This validation step was necessary before selecting the most representative and 
 
 # 3. Data
 
-## Study design
+## 3.1 Study design
 
 This observational pilot study was conducted online using **SoSci Survey**. Participants viewed a set of 12 animated avatars, coresponding to six body morphologies, each represented by one male and one female avatar. All avatars performed a standardized walking-in-place animation displayed in a continuous loop.
 
@@ -50,7 +50,7 @@ The six evaluated morphology dimensions were:
 
 The order of avatar presentation was randomized across participants. In addition, the order of adjective ratings was randomized within each avatar in order to reduce order effects.
 
-## Sample
+## 3.2 Sample
 
 Inclusion criteria were:
 
@@ -60,7 +60,7 @@ Inclusion criteria were:
 
 The target sample size was **20 participants** (10 men, 10 women).
 
-## Raw data structure
+## 3.3 Raw data structure
 
 The raw questionnaire export contained:
 
@@ -77,7 +77,7 @@ Because the avatar order was randomized, preprocessing was required to reconstru
 
 # 4. Analytical Pipeline
 
-## Preprocessing
+## 4.1 Preprocessing
 
 The preprocessing stage was implemented in `01_preprocessing.R`.
 
@@ -96,7 +96,7 @@ The script:
 
 The resulting object, `ratings_long`, contained one row per participant × avatar × adjective.
 
-## Outputs
+## 4.2 Outputs
 
 The preprocessing script generated:
 
@@ -108,7 +108,7 @@ These files were saved in `DAT/clean/` and used as input for the statistical rep
 
 # 5. Statistical Analyses
 
-## Data preparation
+## 5.1 Data preparation
 
 The statistical analyses were implemented in `02_statistics.Rmd`.
 
@@ -121,7 +121,7 @@ The cleaned dataset was first checked for structural consistency, including the 
 
 Participants reporting clinically significant body image or eating disorder difficulties were excluded prior to analysis.
 
-## Descriptive statistics
+## 5.2 Descriptive statistics
 
 Descriptive analyses were computed at several levels:
 
@@ -131,7 +131,7 @@ Descriptive analyses were computed at several levels:
 
 These descriptive statistics were useful to verify the general coherence of the data before inferential testing.
 
-## Validation logic
+## 5.3 Validation logic
 
 Each avatar was associated with a target morphology label extracted from its filename (e.g., `_ATH_`, `_AVG_`, `_THIN_`).
 
@@ -155,7 +155,7 @@ An avatar was considered **validated** if the congruent adjective was rated sign
 
 # 6. Results
 
-## Descriptive outputs
+## 6.1 Descriptive outputs
 
 The analysis produced descriptive tables summarizing mean ratings by avatar and adjective, as well as participant-level summary information after exclusions.
 
@@ -165,7 +165,7 @@ These outputs confirmed that the dataset was correctly structured and suitable f
 knitr::include_graphics("RES/tables/demographics_summary.png")
 ```
 
-## Validation results
+## 6.2 Validation results
 
 The repeated-measures ANOVAs and planned contrasts were computed separately for each avatar.
 
@@ -181,7 +181,7 @@ This allowed a direct selection of the avatars that best matched their intended 
 knitr::include_graphics("RES/tables/avatar_validation.png")
 ```
 
-## Figures
+## 6.3 Figures
 
 The project generated one plot per avatar showing:
 
