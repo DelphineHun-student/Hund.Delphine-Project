@@ -86,8 +86,8 @@ Voges MM, Giabbiconi C-M, Schöne B, Waldorf M, Hartmann AS and Vocks S (2019).
 *Gender Differences in Body Evaluation: Do Men Show More Self-Serving Double Standards Than Women?*  
 Frontiers in Psychology, 10:544.  
 https://doi.org/10.3389/fpsyg.2019.00544
-Amanda Baker, Arnd Florack (2021)
 <br>
+Amanda Baker, Arnd Florack (2021)
 *Uncovering men’s stereotype content (warmth and competence) associated with a representative range of male body size categories*,
 Body Image, Volume 37, Pages 148-161, ISSN 1740-1445.
 https://doi.org/10.1016/j.bodyim.2021.02.007.
