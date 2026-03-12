@@ -14,17 +14,16 @@ output:
 02_processing.Rmd — Statistical Report
 </div>
 
-</div>
 
 # 1. Introduction
 
-This project is part of a pre-manipulation study designed to validate dynamic avatar stimuli before their use in a larger experiment on social perception of body morphology in sports students. The main goal was to determine whether participants’ perceptual judgments matched the intended body morphology represented by each avatar.
+This project is part of a pilot study designed to validate dynamic avatar stimuli before their use in a larger experiment on social perception of body morphology in sports students. The main goal was to determine whether participants’ perceptual judgments matched the intended body morphology represented by each avatar.
 
-This report presents the dataset, preprocessing pipeline, statistical analyses, and validation results. In accordance with the course requirements, the document focuses on the technical and analytical aspects of the project rather than on an extended theoretical discussion.
+This report presents the dataset, preprocessing pipeline, statistical analyses, and validation results.
 
 # 2. Scientific Question
 
-The scientific question underlying this pre-study was the following:
+The scientific question underlying this pilot study was the following:
 
 **Are animated avatars representing distinct body morphology categories perceived according to their intended morphology labels?**
 
@@ -42,7 +41,7 @@ For each avatar, participants rated six morphology adjectives on a continuous sl
 
 The six evaluated morphology dimensions were:
 
-- skinny
+- skinny / underweight
 - thin
 - average
 - athletic
