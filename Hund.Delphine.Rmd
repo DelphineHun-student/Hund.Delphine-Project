@@ -146,7 +146,7 @@ A congruence variable was then defined:
 - **congruent**: adjective matches intended avatar morphology
 - **incongruent**: adjective does not match intended morphology
 
-## Inferential statisctics
+## Inferential statistics
 
 For each avatar, a **repeated-measures ANOVA** tested the global effect of adjective on rating scores.
 
@@ -181,7 +181,7 @@ The final validation summary indicated, for each avatar:
 - the number of significant contrasts
 - whether all contrasts were significant after correction
 
-This allowed a direct selection of the avatars that best matched their intended morphology labels.
+This allowed a direct identification of the avatars that best matched their intended morphology labels and helped identify which avatars might require further adjustment prior to the main experiment.
 
 ```{r tables validation, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 2. Validation summary for each avatar"}
 knitr::include_graphics("RES/tables/avatar_validation.png")
@@ -197,9 +197,72 @@ The project generated one plot per avatar showing:
 
 These visualizations were exported in `RES/plots_avatar/`.
 
-**Figure 1. Female-AVG avatar validation plot.**
+**Figure 1. Female-SKINNY avatar validation plot.**
+```{r plot 1, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_F_SKINNY_W_D_mp4.png")
+```
 
-```{r example-plot, echo=FALSE, out.width="80%", fig.align="center"}
+**Figure 2. Female-THIN avatar validation plot.**
+```{r plot 2, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_F_THIN_W_D_mp4.png")
+```
+
+**Figure 3. Female-AVG avatar validation plot.**
+```{r plot 3, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("RES/plots_avatar/plot_F_AVG_W_D_mp4.png")
 ```
+
+**Figure 4. Female-ATH avatar validation plot.**
+```{r plot 4, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_F_ATH_W_D_mp4.png")
+```
+
+**Figure 5. Female-OW avatar validation plot.**
+```{r plot 5, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_F_OW_W_D_mp4.png")
+```
+
+**Figure 6. Female-OBESE avatar validation plot.**
+```{r plot 6, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_F_OBESE_W_D_mp4.png")
+```
+
+**Figure 7. Male-SKINNY avatar validation plot.**
+```{r plot 7, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_M_SKINNY_W_D_mp4.png")
+```
+
+**Figure 8. Male-THIN avatar validation plot.**
+```{r plot 8, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_M_THIN_W_D_mp4.png")
+```
+
+**Figure 9. Male-AVG avatar validation plot.**
+```{r plot 9, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_M_AVG_W_D_mp4.png")
+```
+
+**Figure 10. Male-ATH avatar validation plot.**
+```{r plot 10, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_M_ATH_W_D_mp4.png")
+```
+
+**Figure 11. Male-OW avatar validation plot.**
+```{r plot 11, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_M_OW_W_D_mp4.png")
+```
+
+**Figure 12. Male-OBESE avatar validation plot.**
+```{r plot 12, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar/plot_M_OBESE_W_D_mp4.png")
+```
+
+## Discussion - Stimulus Validation
+The present pre-manipulation aimed to verify whether the dynamic avatars were perceived in accordance with their intended body morphology categories. Overall, the results indicate that most avatars were successfully recognized according to their target adjective (F-Skinny, F-Thin, F-Avg, F-Overweight, M-Thin, M-Avg, M-Ath, M-Overweight).
+
+For the two extreme body morphology categories (obese and skinny), not all planned contrasts reached statistical significance. Specifically, ratings for these avatars did not differ significantly from the adjective representing the adjacent morphology category (i.e., overweight for the obese avatar and thin for the skinny avatar). This result was expected given the structure of the rating task, as these adjectives represent neighbouring points along a continuous body-size spectrum.
+
+Importantly, the avatars corresponding to the intermediate categories (overweight and thin) were not perceived as the extreme morphologies. This pattern suggests that participants were still able to differentiate the most extreme body types from the more moderate categories, even when the distinction between adjacent categories was not always statistically significant.
+
+Moreover, the distinction between these extreme morphologies primarily reflects variations along a continuous body mass index (BMI) gradient rather than clearly defined categorical prototypes. In contrast, categories such as athletic or average correspond more closely to commonly shared social representations of body types, which may facilitate more distinct perceptual judgments.
 
