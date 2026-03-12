@@ -1,4 +1,4 @@
-#################### Body Perception - Pre-manip ###################
+#################### Body Perception - Pilot study ###################
 # OBJECTIVE:
 # Reconstruct the mapping between:
 # - Avatar presented at each slot (VI03_01 ... VI03_12)

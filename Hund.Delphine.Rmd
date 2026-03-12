@@ -27,7 +27,7 @@ The scientific question underlying this pilot study was the following:
 
 **Are animated avatars representing distinct body morphology categories perceived according to their intended morphology labels?**
 
-More specifically, the project aimed to assess whether avatars designed to represent six categories — skinny, thin, average, athletic, overweight, and obese — were rated highest on their congruent adjective compared with the five incongruent adjectives.
+More specifically, the project aimed to assess whether avatars designed to represent six categories (skinny, thin, average, athletic, overweight, and obese) were rated highest on their congruent adjective compared with the five incongruent adjectives.
 
 This validation step was necessary before selecting the most representative and perceptually distinct stimuli for the main study on social perception of body morphology in sports students.
 
@@ -35,7 +35,7 @@ This validation step was necessary before selecting the most representative and 
 
 ## Study design
 
-This observational pilot study was conducted online using **SoSci Survey**. Participants viewed a set of 12 animated avatars (6 female and 6 male), with two avatars per body morphology category. All avatars performed a standardized walking-in-place animation displayed in a continuous loop.
+This observational pilot study was conducted online using **SoSci Survey**. Participants viewed a set of 12 animated avatars, coresponding to six body morphologies, each represented by one male and one female avatar. All avatars performed a standardized walking-in-place animation displayed in a continuous loop.
 
 For each avatar, participants rated six morphology adjectives on a continuous slider scale ranging from **1 (“Not at all”)** to **101 (“Completely”)**.
 
@@ -51,8 +51,6 @@ The six evaluated morphology dimensions were:
 The order of avatar presentation was randomized across participants. In addition, the order of adjective ratings was randomized within each avatar in order to reduce order effects.
 
 ## Sample
-
-Participants were recruited online through university mailing lists and personal networks.
 
 Inclusion criteria were:
 
@@ -97,12 +95,6 @@ The script:
 5. exported the cleaned dataset into `DAT/clean/`
 
 The resulting object, `ratings_long`, contained one row per participant × avatar × adjective.
-
-## Data restructuring logic
-
-The preprocessing relied on the fact that each slot was associated with exactly six adjective ratings. A dedicated helper function retrieved the six `PM` columns associated with each slot, and the dataset was then pivoted into long format using `pivot_longer()`.
-
-This step was necessary because the raw data were not directly organized by avatar identity, but by presentation order.
 
 ## Outputs
 
@@ -169,6 +161,10 @@ The analysis produced descriptive tables summarizing mean ratings by avatar and 
 
 These outputs confirmed that the dataset was correctly structured and suitable for within-avatar repeated-measures analyses.
 
+```{r tables descriptives 1, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 1. Demographic characteristics of th final included sample"}
+knitr::include_graphics("RES/tables/demographics_summary.png")
+```
+
 ## Validation results
 
 The repeated-measures ANOVAs and planned contrasts were computed separately for each avatar.
@@ -192,7 +188,7 @@ The project generated one plot per avatar showing:
 
 These visualizations were exported in `RES/plots_avatar/`.
 
-**Figure 1. Example of avatar validation plot.**
+**Figure 1. Female-AVG avatar validation plot.**
 
 ```{r example-plot, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("RES/plots_avatar/plot_F_AVG_W_D_mp4.png")

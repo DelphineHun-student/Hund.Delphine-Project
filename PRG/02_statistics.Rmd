@@ -340,6 +340,12 @@ avatar_validation <- posthoc_by_avatar %>%
   arrange(desc(all_contrasts_significant), avatar)
 
 avatar_validation
+
+# Export
+save_table_png(
+  avatar_validation,
+  file.path(TABLES_DIR, "avatar_validation.png")
+)
 ```
 
 ## Plots and export
