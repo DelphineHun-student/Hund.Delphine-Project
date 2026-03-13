@@ -1449,12 +1449,6 @@ font-size: 0.90em;
 .tocify .list-group-item {
 border-radius: 0px;
 }
-.tocify-subheader {
-display: inline;
-}
-.tocify-subheader .tocify-item {
-font-size: 0.95em;
-}
 </style>
 
 
@@ -2043,7 +2037,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = false;
+    options.showAndHide = true;
     options.smoothScroll = true;
 
     // tocify

@@ -258,11 +258,21 @@ knitr::include_graphics("RES/plots_avatar/plot_M_OBESE_W_D_mp4.png")
 ```
 
 ## Discussion - Stimulus Validation
-The present pre-manipulation aimed to verify whether the dynamic avatars were perceived in accordance with their intended body morphology categories. Overall, the results indicate that most avatars were successfully recognized according to their target adjective (F-Skinny, F-Thin, F-Avg, F-Overweight, M-Thin, M-Avg, M-Ath, M-Overweight).
+The present pre-manipulation aimed to verify whether the dynamic avatars were perceived in accordance with their intended body morphology categories. Overall, the results indicate that most avatars were successfully recognized according to their target adjective(F-Thin, F-Avg, F-Overweight, M-Thin, M-Avg, M-Ath, M-Overweight).
 
 For the two extreme body morphology categories (obese and skinny), not all planned contrasts reached statistical significance. Specifically, ratings for these avatars did not differ significantly from the adjective representing the adjacent morphology category (i.e., overweight for the obese avatar and thin for the skinny avatar). This result was expected given the structure of the rating task, as these adjectives represent neighbouring points along a continuous body-size spectrum.
 
-Importantly, the avatars corresponding to the intermediate categories (overweight and thin) were not perceived as the extreme morphologies. This pattern suggests that participants were still able to differentiate the most extreme body types from the more moderate categories, even when the distinction between adjacent categories was not always statistically significant.
+Importantly, the avatars corresponding to the intermediate categories (overweight and thin) were not perceived as the extreme morphologies. This pattern suggests that participants were still able to differentiate the most extreme body types from the more moderate categories, even when the distinction between adjacent categories was not always statistically significant. Taken together, these results support the validity of the "extreme avatar morphologies" and justify their use as stimuli in the main experiment (F-Obese, M-Skinny, M-Obese).
 
-Moreover, the distinction between these extreme morphologies primarily reflects variations along a continuous body mass index (BMI) gradient rather than clearly defined categorical prototypes. In contrast, categories such as athletic or average correspond more closely to commonly shared social representations of body types, which may facilitate more distinct perceptual judgments.
+**Special Cases:**
+The athletic female avatar was not significantly differentiated from the average morphology. To improve perceptual distinction between these categories, the muscularity of the avatar was increased. The validation procedure was then rerun on the adjusted avatar, which successfully reached validation criteria.
+
+
+In addition, the female underweight avatar was perceived significantly as thin and received higher thin ratings than the original thin avatar. This avatar was therefore retained as the thin morphology, and a new underweight avatar was created.
+
+For the male avatars, the thin morphology was not significantly differentiated from the average category. The avatar was therefore slightly modified by reducing body mass to increase perceptual differentiation between these morphologies.
+
+
+
+
 
