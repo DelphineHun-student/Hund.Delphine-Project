@@ -22,16 +22,16 @@ CLEAN_PATH <- file.path(DAT_PATH, "clean")
 RES_PATH   <- file.path(PATH, "RES")
 
 # Import raw data
-file_name = "data_BodyPerception.xlsx"
+file_name = "data_BodyPerception_new.xlsx"
 file_path = file.path(RAW_PATH, file_name)
 df_raw = read_excel(file_path)
 
 ADJ = c("athletic", "average", "overweight", "obese", "thin", "skinny")
 
 # VI columns
-n_slots <- 12
+n_slots <- 4
 n_adj <- 6
-vi_cols = sprintf("VI03_%02d",1:n_slots )
+vi_cols = sprintf("VS03_%02d",1:n_slots )
 pm_cols = sprintf("PM%02d_01", 1:(n_slots * n_adj))
 
 # Safety check
@@ -50,7 +50,7 @@ long_list = vector("list", n_slots)
 
 # Loop
 for (s in 1:n_slots) {
-  avatar_col = sprintf("VI03_%02d", s)
+  avatar_col = sprintf("VS03_%02d", s)
   slot_pm    = get_pm_cols_for_slot(s)
   tmp_long = df_raw %>%
     select(all_of(meta_cols), all_of(avatar_col), all_of(slot_pm)) %>%
@@ -79,11 +79,11 @@ ratings_long = bind_rows(long_list) %>%
 
 # Export cleaned data
 # RData
-save(ratings_long, file = file.path(CLEAN_PATH, "pre_manip_ratings.rdata"))
+save(ratings_long, file = file.path(CLEAN_PATH, "pre_manip_ratings_new.rdata"))
 
 # CSV
 write.csv(ratings_long,
-          file = file.path(CLEAN_PATH, "pre_manip_ratings.csv"),
+          file = file.path(CLEAN_PATH, "pre_manip_ratings_new.csv"),
           row.names = FALSE)
 
 # Excel
@@ -91,9 +91,10 @@ wb = createWorkbook()
 addWorksheet(wb, "ratings_long")
 writeData(wb, "ratings_long", ratings_long)
 saveWorkbook(wb,
-             file = file.path(CLEAN_PATH, "pre_manip_ratings.xlsx"),
+             file = file.path(CLEAN_PATH, "pre_manip_ratings_new.xlsx"),
              overwrite = TRUE)
 
 # Sanity check 
 print(head(ratings_long))
 print(table(ratings_long$adjectif))
+
