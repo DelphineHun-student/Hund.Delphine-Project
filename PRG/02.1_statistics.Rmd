@@ -66,12 +66,12 @@ PATH <- dirname(getwd())
 DAT_PATH = file.path(PATH, "DAT")
 CLEAN_PATH = file.path(DAT_PATH, "clean")
 RES_PATH = file.path(PATH, "RES")
-TABLES_DIR <- file.path(RES_PATH, "tables")
+TABLES_DIR <- file.path(RES_PATH, "tables_revalidation")
 ```
 
 ### Read data 
 ```{r}
-file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings.rdata")
+file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings_new.rdata")
 load(file_rdata)
 ```
 
@@ -203,11 +203,32 @@ save_table_png(
 
 
 ```
+```{r}
+ratings_clean %>%
+  group_by(avatar) %>%
+  summarise(
+    n_participants = n_distinct(CASE),
+    n_adjectifs = n_distinct(adjectif),
+    n_rows = n(),
+    .groups = "drop"
+  )
+
+```
 
 ## Manip-check
 ### Congruence code
 We extract each avatar’s intended morphology from its filename (e.g., `_ATH_`, `_AVG_`) and define whether each rating is *congruent* (adjective matches intended morphology) or *incongruent*.
 ```{r congruence code}
+
+avatars_valides <- c(
+  "F_ATH_W_D.mp4",
+  "F_SKINNY_W_D.mp4",
+  "F_THIN_W_D.mp4",
+  "M_THIN_W_D.mp4"
+)
+
+ratings_clean <- ratings_clean %>%
+  filter(avatar %in% avatars_valides)
 morpho_levels <- c("athletic","average","overweight","obese","thin","skinny")
 
 ratings_clean <- ratings_clean %>%
@@ -215,7 +236,6 @@ ratings_clean <- ratings_clean %>%
     morpho_target = case_when(
       str_detect(avatar, "_ATH_")    ~ "athletic",
       str_detect(avatar, "_AVG_")    ~ "average",
-      str_detect(avatar, "_OW_")     ~ "overweight",
       str_detect(avatar, "_OBESE_")  ~ "obese",
       str_detect(avatar, "_THIN_")   ~ "thin",
       str_detect(avatar, "_SKINNY_") ~ "skinny",
@@ -411,7 +431,7 @@ plot_one_avatar <- function(av_id){
 avatar_list <- sort(unique(plot_data$avatar))
 walk(avatar_list, ~ print(plot_one_avatar(.x)))
 
-PLOTS_DIR <- file.path(RES_PATH, "plots_avatar")
+PLOTS_DIR <- file.path(RES_PATH, "plots_avatar_new")
 if (!dir.exists(PLOTS_DIR)) dir.create(PLOTS_DIR, recursive = TRUE)
 
 walk(avatar_list, function(av){
