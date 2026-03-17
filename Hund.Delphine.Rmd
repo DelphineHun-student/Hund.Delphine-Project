@@ -267,12 +267,6 @@ Importantly, the avatars corresponding to the intermediate categories (overweigh
 **Special Cases:**
 The athletic female avatar was not significantly differentiated from the average morphology. To improve perceptual distinction between these categories, the muscularity of the avatar was increased. The validation procedure was then rerun on the adjusted avatar, which successfully reached validation criteria.
 
-
 In addition, the female underweight avatar was perceived significantly as thin and received higher thin ratings than the original thin avatar. This avatar was therefore retained as the thin morphology, and a new underweight avatar was created.
 
 For the male avatars, the thin morphology was not significantly differentiated from the average category. The avatar was therefore slightly modified by reducing body mass to increase perceptual differentiation between these morphologies.
-
-
-
-
-
