@@ -376,6 +376,7 @@ save_table_png(
 ## Plots and export
 For each avatar, we plot mean ratings (± SEM) for the six adjectives. The intended adjective (congruent) is highlighted.  
 Plots are exported as one PNG file per avatar in `RES/plots_avatar/`.
+
 ```{r plots and export}
 # Mean + SEM per avatar × adjective
 plot_data <- ratings_clean %>%
@@ -400,6 +401,15 @@ plot_one_avatar <- function(av_id){
 
   pd_av <- plot_data %>% filter(avatar == av_id)
   sg_av <- sig_labels %>% filter(avatar == av_id)
+
+  # Cas particulier : pour F_THIN_W_D.mp4, afficher seulement THIN et SKINNY
+  if (av_id == "F_THIN_W_D.mp4") {
+    pd_av <- pd_av %>%
+      filter(adjectif %in% c("thin", "skinny"))
+
+    sg_av <- sg_av %>%
+      filter(compared_to %in% c("skinny"))
+  }
 
   ggplot(pd_av, aes(x = adjectif, y = mean_note)) +
     geom_col(aes(fill = adjectif == morpho_target), width = 0.7) +
@@ -446,5 +456,5 @@ walk(avatar_list, function(av){
     dpi = 300, bg = "white"
   )
 })
-
 ```
+
