@@ -44,7 +44,7 @@ The present analyses are based on the laste version of the pilot study questionn
 - Updated male thin avatar (thinner).
 
 ## Initiate
-### Packages 
+### Packages
 ```{r}
 library(dplyr)
 library(tidyr)
