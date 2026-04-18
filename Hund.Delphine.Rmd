@@ -76,10 +76,10 @@ The raw questionnaire export contained:
 
 More specifically, the dataset included:
 
-- `VI03_01` to `VI03_12`: avatar identifiers shown in each slot
+- `VS03_01` to `VS03_12`: avatar identifiers shown in each slot
 - `PM01_01` to `PM72_01`: 72 ratings corresponding to 12 blocks of 6 adjectives
 
-Because the avatar order was randomized, preprocessing was required to reconstruct the mapping between avatar identity and adjective-based ratings.
+Because the avatar order was randomized, preprocessing was required to reconstruct the mapping between avatar identity and adjective-based ratings (`DE10`).
 
 # Analytical Pipeline
 
@@ -167,7 +167,7 @@ The analysis produced descriptive tables summarizing mean ratings by avatar and 
 
 These outputs confirmed that the dataset was correctly structured and suitable for within-avatar repeated-measures analyses.
 
-```{r tables descriptives 1, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 1. Demographic characteristics of th final included sample"}
+```{r tables descriptives 1, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 1. Demographic characteristics of the final included sample"}
 knitr::include_graphics("RES/tables/demographics_summary.png")
 ```
 
@@ -270,3 +270,28 @@ The athletic female avatar was not significantly differentiated from the average
 In addition, the female underweight avatar was perceived significantly as thin and received higher thin ratings than the original thin avatar. This avatar was therefore retained as the thin morphology, and a new underweight avatar was created.
 
 For the male avatars, the thin morphology was not significantly differentiated from the average category. The avatar was therefore slightly modified by reducing body mass to increase perceptual differentiation between these morphologies.
+
+**Final validation with modifications:**
+```{r tables descriptives 3, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 2. Demographic characteristics of the final included sample for modified version"}
+knitr::include_graphics("RES/tables_revalidation/demographics_summary.png")
+```
+
+**Figure 13. Male-THIN avatar validation plot (modified version).**
+```{r plot 13, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar_new/plot_M_THIN_W_D_mp4.png")
+```
+
+**Figure 14. Female-ATH avatar validation plot (modified version).**
+```{r plot 14, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar_new/plot_F_ATH_W_D_mp4.png")
+```
+
+**Figure 15. Female-SKINNY avatar validation plot (modified version).**
+```{r plot 15, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar_new/plot_F_SKINNY_W_D_mp4.png")
+```
+
+**Figure 16. Female-THIN avatar validation plot (modified version).**
+```{r plot 16, echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("RES/plots_avatar_new/plot_F_THIN_W_D_mp4.png")
+```
