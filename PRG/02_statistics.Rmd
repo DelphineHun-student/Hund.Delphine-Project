@@ -42,9 +42,12 @@ The present analyses are based on Version 2 of the pilot study questionnaire and
 - The adjective *“skinny”* (previously translated as “maigre”) was replaced with a more precise wording referring to *“underweight”* ("sous-poids").
 - Updated male avatars using a corrected animation, without shoulder/trapezius deformation (*Catwalk Walk Forward 02*, on Mixamo.com).
 
+
 ## Initiate
 ### Packages 
 ```{r}
+project_root <- renv::project()
+knitr::opts_knit$set(root.dir = project_root)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -69,10 +72,13 @@ TABLES_DIR <- file.path(RES_PATH, "tables")
 ```
 
 ### Read data 
-```{r}
-file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings.rdata")
+```{r load-data}
+file_rdata <- file.path(
+  project_root, "DAT", "clean", "pre_manip_ratings.rdata"
+)
 load(file_rdata)
 ```
+
 
 ## Data preparation
 ### Data integrity check

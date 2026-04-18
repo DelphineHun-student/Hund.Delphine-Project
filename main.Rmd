@@ -21,14 +21,22 @@ main.Rmd — Full pipeline execution
 
 This `main.Rmd` is the **entry point** of the project. It runs the full pipeline:
 
-1. **Preprocessing** (`PRG/01_preprocessing.R`)  
+This `main.Rmd` is the **entry point** of the project. It runs the full pipeline:
+
+1. **Preprocessing 1** (`PRG/01_preprocessing.R`)  
    → reads raw questionnaire data and exports a cleaned dataset into `DAT/clean/`
 
-2. **Statistical report** (`PRG/02_statistics.Rmd`)  
+2. **Preprocessing 2** (`PRG/01.1_preprocessing.R`)  
+   → runs the second preprocessing pipeline and exports its cleaned dataset (new) into `DAT/clean/`
+
+3. **Statistical report 1** (`PRG/02_statistics.Rmd`)  
    → renders an HTML report into `RES/`
+
+4. **Statistical report 2** (`PRG/02.2_statistics.Rmd`)  
+   → renders a second HTML report into `RES/`
    
-3. **Plots** (`PRG/02_statistics.Rmd`)  
-   → renders .png exports into `RES/plots_avatar/`
+5. **Plots** (`PRG/02_statistics.Rmd`)  
+   → renders .png exports into `RES/`
 
 ### How to run
 
@@ -46,20 +54,46 @@ knitr::opts_chunk$set(
 ### Restore the renv environment
 ```{r restore renv environment}
 if (requireNamespace("renv", quietly = TRUE)) {
-  options(pkgType = "binary")
-  renv::restore(prompt = FALSE)
+  source("renv/activate.R", local = TRUE)
 }
 ```
 
 ### Run full pipeline
 ```{r run pipeline}
+# Preprocessing 1
 source("PRG/01_preprocessing.R")
+
+# Preprocessing 2
+source("PRG/01.1_preprocessing.R")
+
+# Report 1
+rmarkdown::render(
+  input = "PRG/02_statistics.Rmd",
+  output_format = "html_document",
+  output_dir = "RES"
+)
+
+# Report 2
+rmarkdown::render(
+  input = "PRG/02.1_statistics.Rmd",
+  output_format = "html_document",
+  output_dir = "RES"
+)
+```
+source("PRG/01_preprocessing.R")
+
+source("PRG/01.1_preprocessing.R")
 
 rmarkdown::render(
   input = "PRG/02_statistics.Rmd",
   output_format = "html_document",
   output_dir = "RES")
-```
+
+rmarkdown::render(
+  input = "PRG/02.1_statistics.Rmd",
+  output_format = "html_document",
+  output_dir = "RES")
+
 
 ```{r done, results='asis', echo=FALSE}
 cat("### Outputs\n")

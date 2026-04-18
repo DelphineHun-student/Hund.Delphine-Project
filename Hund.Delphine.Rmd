@@ -33,7 +33,7 @@ The scientific question underlying this pilot study was the following:
 
 **Are animated avatars representing distinct body morphology categories perceived according to their intended morphology labels?**
 
-More specifically, the project aimed to assess whether avatars designed to represent six categories (skinny, thin, average, athletic, overweight, and obese) were rated highest on their congruent adjective compared with the five incongruent adjectives.
+More specifically, the project aimed to assess whether avatars designed to represent six categories (underweight, thin, average, athletic, overweight, and obese) were rated highest on their congruent adjective compared with the five incongruent adjectives.
 
 This validation step was necessary before selecting the most representative and perceptually distinct stimuli for the main study on social perception of body morphology in sports students.
 
@@ -47,7 +47,7 @@ For each avatar, participants rated six morphology adjectives on a continuous sl
 
 The six evaluated morphology dimensions were:
 
-- skinny / underweight
+- underweight
 - thin
 - average
 - athletic
@@ -95,7 +95,7 @@ Its objective was to reconstruct the correspondence between:
 The script:
 
 1. imported the raw Excel questionnaire file from `DAT/raw/`
-2. identified avatar columns (`VI03_*`) and rating columns (`PM*_01`)
+2. identified avatar columns (`VS03_*`) and rating columns (`PM*_01`)
 3. reconstructed slot-level adjective ratings
 4. reshaped the dataset into **long format**
 5. exported the cleaned dataset into `DAT/clean/`

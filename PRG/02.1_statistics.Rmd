@@ -37,7 +37,7 @@ For each avatar, ratings will be higher on the adjective matching its intended m
 
 <strong> Final validation </strong>
 
-The present analyses are based on the laste version of the pilot study questionnaire and stimulus set, including the following modifications:
+The present analyses are based on the last version of the pilot study questionnaire and stimulus set, including the following modifications:
 
 - Updated female athletic avatar (more muscle).
 - Updated female skinny avatr (thinner).
@@ -45,7 +45,7 @@ The present analyses are based on the laste version of the pilot study questionn
 
 ## Initiate
 ### Packages
-```{r}
+```{r setup-1, include=FALSE}
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -71,7 +71,9 @@ TABLES_DIR <- file.path(RES_PATH, "tables_revalidation")
 
 ### Read data 
 ```{r}
-file_rdata <- file.path(CLEAN_PATH, "pre_manip_ratings_new.rdata")
+file_rdata <- file.path(
+  project_root, "DAT", "clean", "pre_manip_ratings_new.rdata"
+)
 load(file_rdata)
 ```
 
@@ -160,7 +162,7 @@ desc_avatar_adj
 ```
 
 ### Export
-```{r}
+```{r export}
 wb_desc <- createWorkbook()
 
 addWorksheet(wb_desc, "exclusion_summary")
@@ -203,7 +205,8 @@ save_table_png(
 
 
 ```
-```{r}
+
+```{r table}
 ratings_clean %>%
   group_by(avatar) %>%
   summarise(
@@ -254,7 +257,7 @@ table_congruence
 ```
 ### RM-ANOVA
 For each avatar, we first test whether there is a global effect of adjective using a repeated-measures ANOVA (within-subject factor: adjective).  
-```{r}
+```{r anova}
 adjectifs <- levels(ratings_clean$adjectif)
 
 # RM-ANOVA per avatar (global effect of adjective)
@@ -288,7 +291,7 @@ run_rm_anova <- function(data_av){ # data_av = data of ONE avatar
 We then conduct planned contrasts comparing the target adjective (i.e., the adjective corresponding to the avatar’s intended morphology) against each of the five non-target adjectives.
 
 All post-hoc comparisons are corrected for multiple testing using the Holm method.
-```{r}
+```{r post-hoc}
 run_planned_contrasts <- function(data_av, adjectives = adjectifs) {
   target <- unique(data_av$morpho_target)
   stopifnot(length(target) == 1)
