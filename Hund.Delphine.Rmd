@@ -62,7 +62,7 @@ Inclusion criteria were:
 
 - age ≥ 18 years
 - fluency in French
-- no self-reported history of clinically significant body image or eating disorder difficulties
+- no self-reported history of clinically significant body image disturbances or eating disorders (variable `DE10`), as such conditions are known to affect body perception and could bias the evaluation of avatar morphology
 
 The target sample size was **20 participants** (10 men, 10 women).
 
@@ -79,7 +79,7 @@ More specifically, the dataset included:
 - `VS03_01` to `VS03_12`: avatar identifiers shown in each slot
 - `PM01_01` to `PM72_01`: 72 ratings corresponding to 12 blocks of 6 adjectives
 
-Because the avatar order was randomized, preprocessing was required to reconstruct the mapping between avatar identity and adjective-based ratings (`DE10`).
+Because the avatar order was randomized, preprocessing was required to reconstruct the mapping between avatar identity and adjective-based ratings.
 
 # Analytical Pipeline
 
@@ -197,7 +197,7 @@ The project generated one plot per avatar showing:
 
 These visualizations were exported in `RES/plots_avatar/`.
 
-**Figure 1. Female-SKINNY avatar validation plot.**
+**Figure 1. Female-UW avatar validation plot.**
 ```{r plot 1, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("RES/plots_avatar/plot_F_SKINNY_W_D_mp4.png")
 ```
@@ -227,7 +227,7 @@ knitr::include_graphics("RES/plots_avatar/plot_F_OW_W_D_mp4.png")
 knitr::include_graphics("RES/plots_avatar/plot_F_OBESE_W_D_mp4.png")
 ```
 
-**Figure 7. Male-SKINNY avatar validation plot.**
+**Figure 7. Male-UW avatar validation plot.**
 ```{r plot 7, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("RES/plots_avatar/plot_M_SKINNY_W_D_mp4.png")
 ```
@@ -260,9 +260,9 @@ knitr::include_graphics("RES/plots_avatar/plot_M_OBESE_W_D_mp4.png")
 ## Discussion - Stimulus Validation
 The present pre-manipulation aimed to verify whether the dynamic avatars were perceived in accordance with their intended body morphology categories. Overall, the results indicate that most avatars were successfully recognized according to their target adjective(F-Thin, F-Avg, F-Overweight, M-Thin, M-Avg, M-Ath, M-Overweight).
 
-For the two extreme body morphology categories (obese and skinny), not all planned contrasts reached statistical significance. Specifically, ratings for these avatars did not differ significantly from the adjective representing the adjacent morphology category (i.e., overweight for the obese avatar and thin for the skinny avatar). This result was expected given the structure of the rating task, as these adjectives represent neighbouring points along a continuous body-size spectrum.
+For the two extreme body morphology categories (obese and underweight), not all planned contrasts reached statistical significance. Specifically, ratings for these avatars did not differ significantly from the adjective representing the adjacent morphology category (i.e., overweight for the obese avatar and thin for the underweight avatar). This result was expected given the structure of the rating task, as these adjectives represent neighbouring points along a continuous body-size spectrum.
 
-Importantly, the avatars corresponding to the intermediate categories (overweight and thin) were not perceived as the extreme morphologies. This pattern suggests that participants were still able to differentiate the most extreme body types from the more moderate categories, even when the distinction between adjacent categories was not always statistically significant. Taken together, these results support the validity of the "extreme avatar morphologies" and justify their use as stimuli in the main experiment (F-Obese, M-Skinny, M-Obese).
+Importantly, the avatars corresponding to the intermediate categories (overweight and thin) were not perceived as the extreme morphologies. This pattern suggests that participants were still able to differentiate the most extreme body types from the more moderate categories, even when the distinction between adjacent categories was not always statistically significant. Taken together, these results support the validity of the "extreme avatar morphologies" and justify their use as stimuli in the main experiment (F-Obese, M-UW, M-Obese).
 
 **Special Cases:**
 The athletic female avatar was not significantly differentiated from the average morphology. To improve perceptual distinction between these categories, the muscularity of the avatar was increased. The validation procedure was then rerun on the adjusted avatar, which successfully reached validation criteria.
@@ -286,7 +286,7 @@ knitr::include_graphics("RES/plots_avatar_new/plot_M_THIN_W_D_mp4.png")
 knitr::include_graphics("RES/plots_avatar_new/plot_F_ATH_W_D_mp4.png")
 ```
 
-**Figure 15. Female-SKINNY avatar validation plot (modified version).**
+**Figure 15. Female-UW avatar validation plot (modified version).**
 ```{r plot 15, echo=FALSE, out.width="80%", fig.align="center"}
 knitr::include_graphics("RES/plots_avatar_new/plot_F_SKINNY_W_D_mp4.png")
 ```
