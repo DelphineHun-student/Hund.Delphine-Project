@@ -74,22 +74,10 @@ TABLES_DIR <- file.path(RES_PATH, "tables")
 ### Read data 
 
 ```{r load-data}
-project_root <- renv::project()
+file_xlsx <- file.path(CLEAN_PATH, "pre_manip_ratings.xlsx")
 
-file_rdata <- file.path(
-  project_root, "DAT", "clean", "pre_manip_ratings.rdata")
-
-if (!is.character(file_rdata) || length(file_rdata) != 1 || is.na(file_rdata)) {
-  stop("file_rdata is not a valid character path.")
-}
-
-if (!file.exists(file_rdata)) {
-  stop(paste("Missing file:", file_rdata))
-}
-
-load(file_rdata)
+ratings_long <- read_excel(file_xlsx)
 ```
-
 
 ## Data preparation
 ### Data integrity check
