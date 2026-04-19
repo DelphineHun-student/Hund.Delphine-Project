@@ -69,7 +69,7 @@ DAT/
      ├── pre_manip_ratings.csv
      └── pre_manip_ratings.rdata
 RES/
-├── plots_avatar/   # Statisctical plots (one per avatar)
+├── plots_avatar/   # Statistical plots (one per avatar)
 ├── tables/         # Descriptive statistics tables
 └── 02_statistics.html
 </pre>
@@ -97,3 +97,9 @@ Amanda Baker, Arnd Florack (2021).
 *Uncovering men’s stereotype content (warmth and competence) associated with a representative range of male body size categories*,    
 Body Image, Volume 37, Pages 148-161, ISSN 1740-1445.     
 https://doi.org/10.1016/j.bodyim.2021.02.007.
+<br>
+Vocks, S., Legenbauer, T., Rüddel, H., & Troje, N. F. (2007).
+**Static and dynamic body image in bulimia nervosa: Mental representation of body dimensions and biological motion patterns**,
+International Journal of Eating Disorders, 40(1), 59–66.
+https://doi.org/10.1002/eat.20336
+

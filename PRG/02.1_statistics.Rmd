@@ -203,7 +203,6 @@ save_table_png(
   file.path(TABLES_DIR, "ratings_avatar_adjective.png")
 )
 
-
 ```
 
 ```{r table}
