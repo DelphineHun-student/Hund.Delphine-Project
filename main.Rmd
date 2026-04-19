@@ -53,9 +53,12 @@ knitr::opts_chunk$set(
 
 ### Restore the renv environment
 ```{r restore renv environment}
-if (requireNamespace("renv", quietly = TRUE)) {
-  source("renv/activate.R", local = TRUE)
+if (!requireNamespace("renv", quietly = TRUE)) {
+  install.packages("renv")
 }
+source("renv/activate.R", local = TRUE)
+
+renv::restore(prompt = FALSE)
 ```
 
 ### Run full pipeline
