@@ -28,7 +28,9 @@ The pilot study evaluates whether participants’ perceptual judgments match the
 │   └── clean/
 ├── PRG/
 │   ├── 01_preprocessing.R
-│   └── 02_statistics.Rmd
+│   ├── 01.1_preprocessing.R
+│   ├── 02_statisctics.Rmd
+│   └── 02.2_statistics.Rmd
 ├── RES/
 │   ├── plots_avatar/
 │   ├── tables/
