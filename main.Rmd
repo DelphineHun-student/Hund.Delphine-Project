@@ -49,6 +49,17 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r}
+required_packages <- c("gt", "webshot2")
+
+for (pkg in required_packages) {
+
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg)
+  }
+}
+```
+
 ### Restore the renv environment
 ```{r restore renv environment}
 if (!requireNamespace("renv", quietly = TRUE)) {
