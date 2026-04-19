@@ -33,7 +33,9 @@ The pilot study evaluates whether participants’ perceptual judgments match the
 │   └── 02.2_statistics.Rmd
 ├── RES/
 │   ├── plots_avatar/
+│   ├── plots_avatar_new/
 │   ├── tables/
+│   ├── tables_new/
 │   └── stimulus set/
 ├── main.Rmd
 ├── main.Rproj
@@ -56,7 +58,7 @@ To reproduce the analyses:
 2. Run `main.Rmd`
 
 This will:  
-- Execute `01_preprocessing.R` and `02_statistics.Rmd`  
+- Execute `01_preprocessing.R`, `01.1_preprocessing.R`, `02_statistics.Rmd` and `02.1_statistics.Rmd`  
 - Generate all outputs in the `RES/` folder  
 
 ### Outputs
