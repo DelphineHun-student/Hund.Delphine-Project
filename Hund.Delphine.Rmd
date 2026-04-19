@@ -273,8 +273,8 @@ In addition, the female underweight avatar was perceived significantly as thin a
 For the male avatars, the thin morphology was not significantly differentiated from the average category. The avatar was therefore slightly modified by reducing body mass to increase perceptual differentiation between these morphologies. The validation procedure was then rerun on the adjusted avatar, which successfully reached validation criteria (c.f **Fig. 13**).
 
 **Final validation with modifications:**
-```{r tables descriptives 3, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 2. Demographic characteristics of the final included sample for modified version"}
-knitr::include_graphics("RES/tables_revalidation/demographics_summary.png")
+```{r tables descriptives 3, echo=FALSE, fig.align="center", out.width="50%", fig.cap="Table 3. Demographic characteristics of the final included sample for modified version"}
+knitr::include_graphics("RES/tables_new/demographics_summary.png")
 ```
 
 **Figure 13. Male-THIN avatar validation plot (modified version).**
