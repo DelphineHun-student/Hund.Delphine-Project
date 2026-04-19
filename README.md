@@ -17,6 +17,7 @@ University of Montpellier
 
 This project aims to validate a set of animated avatars representing different body morphology categories.  
 The pilot study evaluates whether participants’ perceptual judgments match the intended morphology labels before inclusion in a larger experimental protocol.
+The analysis is implemented through a fully reproducible pipeline using R and renv.
 
 ---
 
@@ -29,8 +30,8 @@ The pilot study evaluates whether participants’ perceptual judgments match the
 ├── PRG/
 │   ├── 01_preprocessing.R
 │   ├── 01.1_preprocessing.R
-│   ├── 02_statisctics.Rmd
-│   └── 02.2_statistics.Rmd
+│   ├── 02_statistics.Rmd
+│   └── 02.1_statistics.Rmd
 ├── RES/
 │   ├── plots_avatar/
 │   ├── plots_avatar_new/
@@ -71,7 +72,8 @@ DAT/
 RES/
 ├── plots_avatar/   # Statistical plots (one per avatar)
 ├── tables/         # Descriptive statistics tables
-└── 02_statistics.html
+├── 02_statistics.html
+└── 02.1_statistics.html
 </pre>
 
 ### Scientific report
