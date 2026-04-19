@@ -21,8 +21,6 @@ main.Rmd — Full pipeline execution
 
 This `main.Rmd` is the **entry point** of the project. It runs the full pipeline:
 
-This `main.Rmd` is the **entry point** of the project. It runs the full pipeline:
-
 1. **Preprocessing 1** (`PRG/01_preprocessing.R`)  
    → reads raw questionnaire data and exports a cleaned dataset into `DAT/clean/`
 
@@ -32,7 +30,7 @@ This `main.Rmd` is the **entry point** of the project. It runs the full pipeline
 3. **Statistical report 1** (`PRG/02_statistics.Rmd`)  
    → renders an HTML report into `RES/`
 
-4. **Statistical report 2** (`PRG/02.2_statistics.Rmd`)  
+4. **Statistical report 2** (`PRG/02.1_statistics.Rmd`)  
    → renders a second HTML report into `RES/`
    
 5. **Plots** (`PRG/02_statistics.Rmd`)  

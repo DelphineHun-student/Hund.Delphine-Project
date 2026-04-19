@@ -70,10 +70,20 @@ TABLES_DIR <- file.path(RES_PATH, "tables_revalidation")
 ```
 
 ### Read data 
-```{r}
+```{r load-data}
+project_root <- renv::project()
+
 file_rdata <- file.path(
-  project_root, "DAT", "clean", "pre_manip_ratings_new.rdata"
-)
+  project_root, "DAT", "clean", "pre_manip_ratings_new.rdata")
+
+if (!is.character(file_rdata) || length(file_rdata) != 1 || is.na(file_rdata)) {
+  stop("file_rdata is not a valid character path.")
+}
+
+if (!file.exists(file_rdata)) {
+  stop(paste("Missing file:", file_rdata))
+}
+
 load(file_rdata)
 ```
 

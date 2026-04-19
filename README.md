@@ -6,7 +6,7 @@ Faculty of Sports and Health Sciences (UFR STAPS)
 University of Montpellier  
 
 **Author:** Delphine Hund (Master 1 IEAP Digimove)  
-**Supervisors:** Ludovic Marin, Mathilde Parisi, Stéphane Raffard, Rachel R. Rodgers  
+**Supervisors:** Ludovic Marin, Mathilde Parisi, Stéphane Raffard, Rachel F. Rodgers  
 **Course:** Python, R and Git for Data Analysis  
 **Academic Year:** 2025–2026  
 **Date of Defense:** Tuesday 17 March 2026  
